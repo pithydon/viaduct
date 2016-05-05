@@ -469,6 +469,17 @@ minetest.register_craft({
 	}
 })
 
+if(minetest.get_modpath("tools")) then
+minetest.register_craft({
+	output = "viaduct:"..item.."_bridge 3",
+	recipe = {
+		{"tools:stick", "", "tools:stick"},
+		{"tools:stick", "", "tools:stick"},
+		{recipe, recipe, recipe},
+	}
+})
+end
+
 minetest.register_abm({
 	nodenames = {
 		"viaduct:"..item.."_bridge",
@@ -600,3 +611,18 @@ viaduct.register_node("default:aspen_wood")
 viaduct.register_node("default:planks")
 viaduct.register_node("default:planks_oak")
 viaduct.register_node("default:planks_birch")
+
+if(minetest.get_modpath("deco")) then
+viaduct.register_node("deco:oak_plank")
+viaduct.register_node("deco:birch_plank")
+viaduct.register_node("deco:cherry_plank")
+viaduct.register_node("deco:evergreen_plank")
+end
+
+if(minetest.get_modpath("lottplants")) then
+viaduct.register_node("lottplants:pinewood")
+viaduct.register_node("lottplants:birchwood")
+viaduct.register_node("lottplants:alderwood")
+viaduct.register_node("lottplants:lebethronwood")
+viaduct.register_node("lottplants:mallornwood")
+end
