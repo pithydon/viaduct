@@ -511,14 +511,14 @@ minetest.register_abm({
 		local namee = nodee.name:split(':')[1]
 		local names = nodes.name:split(':')[1]
 		local namew = nodew.name:split(':')[1]
-		if namen == "viaduct" then local n = true else local n = false end
-		if namee == "viaduct" then local e = true else local e = false end
-		if names == "viaduct" then local s = true else local s = false end
-		if namew == "viaduct" then local w = true else local w = false end
-		if namend.name == "air" then local nd = true else local nd = false end
-		if nameed.name == "air" then local ed = true else local ed = false end
-		if namesd.name == "air" then local sd = true else local sd = false end
-		if namewd.name == "air" then local wd = true else local wd = false end
+		if namen == "viaduct" then n = true else n = false end
+		if namee == "viaduct" then e = true else e = false end
+		if names == "viaduct" then s = true else s = false end
+		if namew == "viaduct" then w = true else w = false end
+		if namend.name == "air" then nd = true else nd = false end
+		if nameed.name == "air" then ed = true else ed = false end
+		if namesd.name == "air" then sd = true else sd = false end
+		if namewd.name == "air" then wd = true else wd = false end
 		if n and e and s and w then
 			minetest.set_node(pos, {name = "viaduct:"..item.."_bridge_nesw"})
 		elseif n and e and s and not w then
@@ -597,3 +597,6 @@ viaduct.register_node("default:junglewood")
 viaduct.register_node("default:pine_wood")
 viaduct.register_node("default:acacia_wood")
 viaduct.register_node("default:aspen_wood")
+viaduct.register_node("default:planks")
+viaduct.register_node("default:planks_oak")
+viaduct.register_node("default:planks_birch")
