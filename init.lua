@@ -1,12 +1,16 @@
 viaduct = {}
 
-function viaduct.register_custom(item, name, tile, sound, group, recipe)
+function viaduct.register_custom(item, name, tile, sound, chop, obbh, flam, recipe)
 	local tile_collection
 	if type(tile) == "string" then
 		tile_collection[1] = tile
 	else
 		tile_collection = table.copy(tile)
 	end
+
+	local group = {choppy=chop,oddly_breakable_by_hand=obbh,flammable=flam}
+
+	local nocgroup = {choppy=chop,oddly_breakable_by_hand=obbh,flammable=flam,not_in_creative_inventory=1}
 
 minetest.register_node(":viaduct:"..item.."_bridge", {
 	description = name.." Bridge",
@@ -67,7 +71,7 @@ minetest.register_node(":viaduct:"..item.."_bridge_w", {
 	},
 	drop = "viaduct:"..item.."_bridge",
 	sounds = sound,
-	groups = group,
+	groups = nocgroup,
 })
 
 minetest.register_node(":viaduct:"..item.."_bridge_s", {
@@ -97,7 +101,7 @@ minetest.register_node(":viaduct:"..item.."_bridge_s", {
 	},
 	drop = "viaduct:"..item.."_bridge",
 	sounds = sound,
-	groups = group,
+	groups = nocgroup,
 })
 
 minetest.register_node(":viaduct:"..item.."_bridge_sw", {
@@ -125,7 +129,7 @@ minetest.register_node(":viaduct:"..item.."_bridge_sw", {
 	},
 	drop = "viaduct:"..item.."_bridge",
 	sounds = sound,
-	groups = group,
+	groups = nocgroup,
 })
 
 minetest.register_node(":viaduct:"..item.."_bridge_e", {
@@ -155,7 +159,7 @@ minetest.register_node(":viaduct:"..item.."_bridge_e", {
 	},
 	drop = "viaduct:"..item.."_bridge",
 	sounds = sound,
-	groups = group,
+	groups = nocgroup,
 })
 
 minetest.register_node(":viaduct:"..item.."_bridge_ew", {
@@ -183,7 +187,7 @@ minetest.register_node(":viaduct:"..item.."_bridge_ew", {
 	},
 	drop = "viaduct:"..item.."_bridge",
 	sounds = sound,
-	groups = group,
+	groups = nocgroup,
 })
 
 minetest.register_node(":viaduct:"..item.."_bridge_es", {
@@ -211,7 +215,7 @@ minetest.register_node(":viaduct:"..item.."_bridge_es", {
 	},
 	drop = "viaduct:"..item.."_bridge",
 	sounds = sound,
-	groups = group,
+	groups = nocgroup,
 })
 
 minetest.register_node(":viaduct:"..item.."_bridge_esw", {
@@ -237,7 +241,7 @@ minetest.register_node(":viaduct:"..item.."_bridge_esw", {
 	},
 	drop = "viaduct:"..item.."_bridge",
 	sounds = sound,
-	groups = group,
+	groups = nocgroup,
 })
 
 minetest.register_node(":viaduct:"..item.."_bridge_n", {
@@ -267,7 +271,7 @@ minetest.register_node(":viaduct:"..item.."_bridge_n", {
 	},
 	drop = "viaduct:"..item.."_bridge",
 	sounds = sound,
-	groups = group,
+	groups = nocgroup,
 })
 
 minetest.register_node(":viaduct:"..item.."_bridge_nw", {
@@ -295,7 +299,7 @@ minetest.register_node(":viaduct:"..item.."_bridge_nw", {
 	},
 	drop = "viaduct:"..item.."_bridge",
 	sounds = sound,
-	groups = group,
+	groups = nocgroup,
 })
 
 minetest.register_node(":viaduct:"..item.."_bridge_ns", {
@@ -323,7 +327,7 @@ minetest.register_node(":viaduct:"..item.."_bridge_ns", {
 	},
 	drop = "viaduct:"..item.."_bridge",
 	sounds = sound,
-	groups = group,
+	groups = nocgroup,
 })
 
 minetest.register_node(":viaduct:"..item.."_bridge_nsw", {
@@ -349,7 +353,7 @@ minetest.register_node(":viaduct:"..item.."_bridge_nsw", {
 	},
 	drop = "viaduct:"..item.."_bridge",
 	sounds = sound,
-	groups = group,
+	groups = nocgroup,
 })
 
 minetest.register_node(":viaduct:"..item.."_bridge_ne", {
@@ -377,7 +381,7 @@ minetest.register_node(":viaduct:"..item.."_bridge_ne", {
 	},
 	drop = "viaduct:"..item.."_bridge",
 	sounds = sound,
-	groups = group,
+	groups = nocgroup,
 })
 
 minetest.register_node(":viaduct:"..item.."_bridge_new", {
@@ -403,7 +407,7 @@ minetest.register_node(":viaduct:"..item.."_bridge_new", {
 	},
 	drop = "viaduct:"..item.."_bridge",
 	sounds = sound,
-	groups = group,
+	groups = nocgroup,
 })
 
 minetest.register_node(":viaduct:"..item.."_bridge_nes", {
@@ -429,7 +433,7 @@ minetest.register_node(":viaduct:"..item.."_bridge_nes", {
 	},
 	drop = "viaduct:"..item.."_bridge",
 	sounds = sound,
-	groups = group,
+	groups = nocgroup,
 })
 
 minetest.register_node(":viaduct:"..item.."_bridge_nesw", {
@@ -453,11 +457,11 @@ minetest.register_node(":viaduct:"..item.."_bridge_nesw", {
 	},
 	drop = "viaduct:"..item.."_bridge",
 	sounds = sound,
-	groups = group,
+	groups = nocgroup,
 })
 
 minetest.register_craft({
-	output = "viaduct:"..item.."_bridge",
+	output = "viaduct:"..item.."_bridge 3",
 	recipe = {
 		{"group:stick", "", "group:stick"},
 		{"group:stick", "", "group:stick"},
@@ -507,14 +511,14 @@ minetest.register_abm({
 		local namee = nodee.name:split(':')[1]
 		local names = nodes.name:split(':')[1]
 		local namew = nodew.name:split(':')[1]
-		if namen == "viaduct" then n = true else n = false end
-		if namee == "viaduct" then e = true else e = false end
-		if names == "viaduct" then s = true else s = false end
-		if namew == "viaduct" then w = true else w = false end
-		if namend.name == "air" then nd = true else nd = false end
-		if nameed.name == "air" then ed = true else ed = false end
-		if namesd.name == "air" then sd = true else sd = false end
-		if namewd.name == "air" then wd = true else wd = false end
+		if namen == "viaduct" then local n = true else local n = false end
+		if namee == "viaduct" then local e = true else local e = false end
+		if names == "viaduct" then local s = true else local s = false end
+		if namew == "viaduct" then local w = true else local w = false end
+		if namend.name == "air" then local nd = true else local nd = false end
+		if nameed.name == "air" then local ed = true else local ed = false end
+		if namesd.name == "air" then local sd = true else local sd = false end
+		if namewd.name == "air" then local wd = true else local wd = false end
 		if n and e and s and w then
 			minetest.set_node(pos, {name = "viaduct:"..item.."_bridge_nesw"})
 		elseif n and e and s and not w then
@@ -575,6 +579,9 @@ function viaduct.register_node(name)
 		minetest.log("warning", "[Viaduct] Skipping unknown node: ".. name)
 		return
 	end
+	local chop = minetest.get_item_group(name, "choppy")
+	local obbh = minetest.get_item_group(name, "oddly_breakable_by_hand")
+	local flam = minetest.get_item_group(name, "flammable")
 	local node_name = name:split(':')[2]
 
 	if not node_def.tiles then
@@ -582,7 +589,7 @@ function viaduct.register_node(name)
 		node_def.tile_images = nil
 	end
 
-	viaduct.register_custom(node_name, node_def.description, node_def.tiles, node_def.sound, node_def.groups, name)
+	viaduct.register_custom(node_name, node_def.description, node_def.tiles, node_def.sound, chop, obbh, flam, name)
 end
 
 viaduct.register_node("default:wood")
