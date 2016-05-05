@@ -1,6 +1,6 @@
 viaduct = {}
 
-function viaduct.register_custom(item, name, tile, sound, chop, obbh, flam, recipe)
+function viaduct.register_custom(item, name, tile, sound, group, groupnici, recipe)
 	local tile_collection
 	if type(tile) == "string" then
 		tile_collection[1] = tile
@@ -8,9 +8,16 @@ function viaduct.register_custom(item, name, tile, sound, chop, obbh, flam, reci
 		tile_collection = table.copy(tile)
 	end
 
-	local group = {choppy=chop,oddly_breakable_by_hand=obbh,flammable=flam}
-
-	local nocgroup = {choppy=chop,oddly_breakable_by_hand=obbh,flammable=flam,not_in_creative_inventory=1}
+if group == "nil" then
+	chop = minetest.get_item_group(recipe, "choppy")
+	obbh = minetest.get_item_group(recipe, "oddly_breakable_by_hand")
+	flam = minetest.get_item_group(recipe, "flammable")
+	cgroup = {choppy=chop,oddly_breakable_by_hand=obbh,flammable=flam}
+	nocgroup = {choppy=chop,oddly_breakable_by_hand=obbh,flammable=flam,not_in_creative_inventory=1}
+else
+	cgroup = group
+	nocgroup = groupnici
+end
 
 minetest.register_node(":viaduct:"..item.."_bridge", {
 	description = name.." Bridge",
@@ -41,7 +48,7 @@ minetest.register_node(":viaduct:"..item.."_bridge", {
 	},
 	drop = "viaduct:"..item.."_bridge",
 	sounds = sound,
-	groups = group,
+	groups = cgroup,
 })
 
 minetest.register_node(":viaduct:"..item.."_bridge_w", {
@@ -590,9 +597,7 @@ function viaduct.register_node(name)
 		minetest.log("warning", "[Viaduct] Skipping unknown node: ".. name)
 		return
 	end
-	local chop = minetest.get_item_group(name, "choppy")
-	local obbh = minetest.get_item_group(name, "oddly_breakable_by_hand")
-	local flam = minetest.get_item_group(name, "flammable")
+
 	local node_name = name:split(':')[2]
 
 	if not node_def.tiles then
@@ -600,7 +605,7 @@ function viaduct.register_node(name)
 		node_def.tile_images = nil
 	end
 
-	viaduct.register_custom(node_name, node_def.description, node_def.tiles, node_def.sound, chop, obbh, flam, name)
+	viaduct.register_custom(node_name, node_def.description, node_def.tiles, node_def.sound, "nil", "nil", name)
 end
 
 viaduct.register_node("default:wood")
