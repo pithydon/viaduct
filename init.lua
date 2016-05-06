@@ -467,6 +467,154 @@ minetest.register_node(":viaduct:"..item.."_bridge_nesw", {
 	groups = nocgroup,
 })
 
+minetest.register_node(":viaduct:"..item.."_bridge_un", {
+	description = name.." Bridge",
+	tiles = tile_collection,
+	paramtype = "light",
+	drawtype = "nodebox",
+	node_box = {
+		type = "fixed",
+		fixed = {
+			{-0.5, -0.5, -0.5, 0.5, -0.4375, 0},
+			{-0.5, 0, 0, 0.5, 0.0625, 0.5},
+			{-0.5, 0.0625, 0.375, -0.375, 1, 0.5},
+			{0.375, 0.0625, 0.375, 0.5, 1, 0.5},
+			{-0.5, 0.0625, 0, -0.375, 1, 0.125},
+			{0.375, 0.0625, 0, 0.5, 1, 0.125},
+			{-0.5, -0.4375, -0.125, -0.375, 0.5, 0},
+			{0.375, -0.4375, -0.125, 0.5, 0.5, 0},
+			{-0.5, -0.4375, -0.5, -0.375, 0.5, -0.375},
+			{0.375, -0.4375, -0.5, 0.5, 0.5, -0.375},
+			{-0.4375, 0.8125, 0.125, -0.375, 0.9375, 0.375},
+			{-0.4375, 0.3125, 0.125, -0.375, 0.4375, 0.375},
+			{0.375, 0.8125, 0.125, 0.4375, 0.9375, 0.375},
+			{0.375, 0.3125, 0.125, 0.4375, 0.4375, 0.375},
+			{-0.4375, 0.3125, -0.375, -0.375, 0.4375, -0.125},
+			{-0.4375, -0.1875, -0.375, -0.375, -0.0625, -0.125},
+			{0.375, 0.3125, -0.375, 0.4375, 0.4375, -0.125},
+			{0.375, -0.1875, -0.375, 0.4375, -0.0625, -0.125},
+		},
+	},
+	selection_box = {
+		type = "fixed",
+		fixed = {-0.5, -0.5, -0.5, 0.5, 0.5, 0.5},
+	},
+	drop = "viaduct:"..item.."_bridge",
+	sounds = sound,
+	groups = nocgroup,
+})
+
+minetest.register_node(":viaduct:"..item.."_bridge_ue", {
+	description = name.." Bridge",
+	tiles = tile_collection,
+	paramtype = "light",
+	drawtype = "nodebox",
+	node_box = {
+		type = "fixed",
+		fixed = {
+			{-0.5, -0.5, -0.5, 0, -0.4375, 0.5},
+			{0, 0, -0.5, 0.5, 0.0625, 0.5},
+			{-0.5, -0.4375, 0.375, -0.375, 0.5, 0.5},
+			{-0.125, -0.4375, 0.375, 0, 0.5, 0.5},
+			{-0.5, -0.4375, -0.5, -0.375, 0.5, -0.375},
+			{-0.125, -0.4375, -0.5, 0, 0.5, -0.375},
+			{0, 0.0625, 0.375, 0.125, 1, 0.5},
+			{0.375, 0.0625, 0.375, 0.5, 1, 0.5},
+			{0, 0.0625, -0.5, 0.125, 1, -0.375},
+			{0.375, 0.0625, -0.5, 0.5, 1, -0.375},
+			{-0.375, 0.3125, 0.375, -0.125, 0.4375, 0.4375},
+			{-0.375, -0.1875, 0.375, -0.125, -0.0625, 0.4375},
+			{-0.375, 0.3125, -0.4375, -0.125, 0.4375, -0.375},
+			{-0.375, -0.1875, -0.4375, -0.125, -0.0625, -0.375},
+			{0.125, 0.8125, 0.375, 0.375, 0.9375, 0.4375},
+			{0.125, 0.3125, 0.375, 0.375, 0.4375, 0.4375},
+			{0.125, 0.8125, -0.4375, 0.375, 0.9375, -0.375},
+			{0.125, 0.3125, -0.4375, 0.375, 0.4375, -0.375},
+		},
+	},
+	selection_box = {
+		type = "fixed",
+		fixed = {-0.5, -0.5, -0.5, 0.5, 0.5, 0.5},
+	},
+	drop = "viaduct:"..item.."_bridge",
+	sounds = sound,
+	groups = nocgroup,
+})
+
+minetest.register_node(":viaduct:"..item.."_bridge_us", {
+	description = name.." Bridge",
+	tiles = tile_collection,
+	paramtype = "light",
+	drawtype = "nodebox",
+	node_box = {
+		type = "fixed",
+		fixed = {
+			{-0.5, 0, -0.5, 0.5, 0.0625, 0},
+			{-0.5, -0.5, 0, 0.5, -0.4375, 0.5},
+			{-0.5, -0.4375, 0.375, -0.375, 0.5, 0.5},
+			{0.375, -0.4375, 0.375, 0.5, 0.5, 0.5},
+			{-0.5, -0.4375, 0, -0.375, 0.5, 0.125},
+			{0.375, -0.4375, 0, 0.5, 0.5, 0.125},
+			{-0.5, 0.0625, -0.125, -0.375, 1, 0},
+			{0.375, 0.0625, -0.125, 0.5, 1, 0},
+			{-0.5, 0.0625, -0.5, -0.375, 1, -0.375},
+			{0.375, 0.0625, -0.5, 0.5, 1, -0.375},
+			{-0.4375, 0.3125, 0.125, -0.375, 0.4375, 0.375},
+			{-0.4375, -0.1875, 0.125, -0.375, -0.0625, 0.375},
+			{0.375, 0.3125, 0.125, 0.4375, 0.4375, 0.375},
+			{0.375, -0.1875, 0.125, 0.4375, -0.0625, 0.375},
+			{-0.4375, 0.8125, -0.375, -0.375, 0.9375, -0.125},
+			{-0.4375, 0.3125, -0.375, -0.375, 0.4375, -0.125},
+			{0.375, 0.8125, -0.375, 0.4375, 0.9375, -0.125},
+			{0.375, 0.3125, -0.375, 0.4375, 0.4375, -0.125},
+		},
+	},
+	selection_box = {
+		type = "fixed",
+		fixed = {-0.5, -0.5, -0.5, 0.5, 0.5, 0.5},
+	},
+	drop = "viaduct:"..item.."_bridge",
+	sounds = sound,
+	groups = nocgroup,
+})
+
+minetest.register_node(":viaduct:"..item.."_bridge_uw", {
+	description = name.." Bridge",
+	tiles = tile_collection,
+	paramtype = "light",
+	drawtype = "nodebox",
+	node_box = {
+		type = "fixed",
+		fixed = {
+			{-0.5, 0, -0.5, 0, 0.0625, 0.5},
+			{0, -0.5, -0.5, 0.5, -0.4375, 0.5},
+			{-0.5, 0.0625, 0.375, -0.375, 1, 0.5},
+			{-0.125, 0.0625, 0.375, 0, 1, 0.5},
+			{-0.5, 0.0625, -0.5, -0.375, 1, -0.375},
+			{-0.125, 0.0625, -0.5, 0, 1, -0.375},
+			{0, -0.4375, 0.375, 0.125, 0.5, 0.5},
+			{0.375, -0.4375, 0.375, 0.5, 0.5, 0.5},
+			{0, -0.4375, -0.5, 0.125, 0.5, -0.375},
+			{0.375, -0.4375, -0.5, 0.5, 0.5, -0.375},
+			{-0.375, 0.8125, 0.375, -0.125, 0.9375, 0.4375},
+			{-0.375, 0.3125, 0.375, -0.125, 0.4375, 0.4375},
+			{-0.375, 0.8125, -0.4375, -0.125, 0.9375, -0.375},
+			{-0.375, 0.3125, -0.4375, -0.125, 0.4375, -0.375},
+			{0.125, 0.3125, 0.375, 0.375, 0.4375, 0.4375},
+			{0.125, -0.1875, 0.375, 0.375, -0.0625, 0.4375},
+			{0.125, 0.3125, -0.4375, 0.375, 0.4375, -0.375},
+			{0.125, -0.1875, -0.4375, 0.375, -0.0625, -0.375},
+		},
+	},
+	selection_box = {
+		type = "fixed",
+		fixed = {-0.5, -0.5, -0.5, 0.5, 0.5, 0.5},
+	},
+	drop = "viaduct:"..item.."_bridge",
+	sounds = sound,
+	groups = nocgroup,
+})
+
 minetest.register_craft({
 	output = "viaduct:"..item.."_bridge 3",
 	recipe = {
@@ -504,7 +652,11 @@ minetest.register_abm({
 		"viaduct:"..item.."_bridge_ne",
 		"viaduct:"..item.."_bridge_new",
 		"viaduct:"..item.."_bridge_nes",
-		"viaduct:"..item.."_bridge_nesw"
+		"viaduct:"..item.."_bridge_nesw",
+		"viaduct:"..item.."_bridge_un",
+		"viaduct:"..item.."_bridge_ue",
+		"viaduct:"..item.."_bridge_us",
+		"viaduct:"..item.."_bridge_uw"
 	},
 	interval = 1,
 	chance = 1,
@@ -517,10 +669,20 @@ minetest.register_abm({
 		local eastdown = {x = pos.x + 1, y = pos.y - 1, z = pos.z}
 		local southdown = {x = pos.x, y = pos.y - 1, z = pos.z - 1}
 		local westdown = {x = pos.x - 1, y = pos.y - 1, z = pos.z}
+		local above = {x = pos.x, y = pos.y + 1, z = pos.z}
+		local northup = {x = pos.x, y = pos.y + 1, z = pos.z + 1}
+		local eastup = {x = pos.x + 1, y = pos.y + 1, z = pos.z}
+		local southup = {x = pos.x, y = pos.y + 1, z = pos.z - 1}
+		local westup = {x = pos.x - 1, y = pos.y + 1, z = pos.z}
 		local noden = minetest.get_node(north)
 		local nodee = minetest.get_node(east)
 		local nodes = minetest.get_node(south)
 		local nodew = minetest.get_node(west)
+		local nodenu = minetest.get_node(northup)
+		local nodeeu = minetest.get_node(eastup)
+		local nodesu = minetest.get_node(southup)
+		local nodewu = minetest.get_node(westup)
+		local namea = minetest.get_node(above)
 		local namend = minetest.get_node(northdown)
 		local nameed = minetest.get_node(eastdown)
 		local namesd = minetest.get_node(southdown)
@@ -529,10 +691,19 @@ minetest.register_abm({
 		local namee = nodee.name:split(':')[1]
 		local names = nodes.name:split(':')[1]
 		local namew = nodew.name:split(':')[1]
+		local namenu = nodenu.name:split(':')[1]
+		local nameeu = nodeeu.name:split(':')[1]
+		local namesu = nodesu.name:split(':')[1]
+		local namewu = nodewu.name:split(':')[1]
+		if namea.name == "air" then up = true else up = false end
 		if namen == "viaduct" then n = true else n = false end
 		if namee == "viaduct" then e = true else e = false end
 		if names == "viaduct" then s = true else s = false end
 		if namew == "viaduct" then w = true else w = false end
+		if namenu == "viaduct" and up then nu = true else nu = false end
+		if nameeu == "viaduct" and up then eu = true else eu = false end
+		if namesu == "viaduct" and up then su = true else su = false end
+		if namewu == "viaduct" and up then wu = true else wu = false end
 		if namend.name == "air" then nd = true else nd = false end
 		if nameed.name == "air" then ed = true else ed = false end
 		if namesd.name == "air" then sd = true else sd = false end
@@ -552,7 +723,9 @@ minetest.register_abm({
 		elseif n and not e and not s and w then
 			minetest.set_node(pos, {name = "viaduct:"..item.."_bridge_nw"})
 		elseif n and not e and not s and not w then
-			if sd then
+			if su then
+				minetest.set_node(pos, {name = "viaduct:"..item.."_bridge_us"})
+			elseif sd then
 				minetest.set_node(pos, {name = "viaduct:"..item.."_bridge_n"})
 			else
 				minetest.set_node(pos, {name = "viaduct:"..item.."_bridge_ns"})
@@ -564,7 +737,9 @@ minetest.register_abm({
 		elseif not n and e and not s and w then
 			minetest.set_node(pos, {name = "viaduct:"..item.."_bridge_ew"})
 		elseif not n and e and not s and not w then
-			if wd then
+			if wu then
+				minetest.set_node(pos, {name = "viaduct:"..item.."_bridge_uw"})
+			elseif wd then
 				minetest.set_node(pos, {name = "viaduct:"..item.."_bridge_e"})
 			else
 				minetest.set_node(pos, {name = "viaduct:"..item.."_bridge_ew"})
@@ -572,19 +747,33 @@ minetest.register_abm({
 		elseif not n and not e and s and w then
 			minetest.set_node(pos, {name = "viaduct:"..item.."_bridge_sw"})
 		elseif not n and not e and s and not w then
-			if nd then
+			if nu then
+				minetest.set_node(pos, {name = "viaduct:"..item.."_bridge_un"})
+			elseif nd then
 				minetest.set_node(pos, {name = "viaduct:"..item.."_bridge_s"})
 			else
 				minetest.set_node(pos, {name = "viaduct:"..item.."_bridge_ns"})
 			end
 		elseif not n and not e and not s and w then
-			if ed then
+			if eu then
+				minetest.set_node(pos, {name = "viaduct:"..item.."_bridge_ue"})
+			elseif ed then
 				minetest.set_node(pos, {name = "viaduct:"..item.."_bridge_w"})
 			else
 				minetest.set_node(pos, {name = "viaduct:"..item.."_bridge_ew"})
 			end
 		else
-			minetest.set_node(pos, {name = "viaduct:"..item.."_bridge"})
+			if nu then
+				minetest.set_node(pos, {name = "viaduct:"..item.."_bridge_un"})
+			elseif eu then
+				minetest.set_node(pos, {name = "viaduct:"..item.."_bridge_ue"})
+			elseif su then
+				minetest.set_node(pos, {name = "viaduct:"..item.."_bridge_us"})
+			elseif wu then
+				minetest.set_node(pos, {name = "viaduct:"..item.."_bridge_uw"})
+			else
+				minetest.set_node(pos, {name = "viaduct:"..item.."_bridge"})
+			end
 		end
 	end,
 })
