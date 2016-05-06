@@ -696,10 +696,10 @@ minetest.register_abm({
 		local namesu = nodesu.name:split(':')[1]
 		local namewu = nodewu.name:split(':')[1]
 		if namea.name == "air" then up = true else up = false end
-		if namen == "viaduct" then n = true else n = false end
-		if namee == "viaduct" then e = true else e = false end
-		if names == "viaduct" then s = true else s = false end
-		if namew == "viaduct" then w = true else w = false end
+		if namen == "viaduct" or namend.name == "viaduct:"..item.."_bridge_us" then n = true else n = false end
+		if namee == "viaduct" or nameed.name == "viaduct:"..item.."_bridge_uw" then e = true else e = false end
+		if names == "viaduct" or namesd.name == "viaduct:"..item.."_bridge_un" then s = true else s = false end
+		if namew == "viaduct" or namewd.name == "viaduct:"..item.."_bridge_ue" then w = true else w = false end
 		if namenu == "viaduct" and up then nu = true else nu = false end
 		if nameeu == "viaduct" and up then eu = true else eu = false end
 		if namesu == "viaduct" and up then su = true else su = false end
