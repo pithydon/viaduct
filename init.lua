@@ -1,6 +1,6 @@
 viaduct = {}
 
-function viaduct.register_custom(item, name, tile, sound, group, groupnici, recipe)
+function viaduct.register_custom(item, name, tile, sound, group, recipe)
 	local tile_collection
 	if type(tile) == "string" then
 		tile_collection[1] = tile
@@ -13,11 +13,27 @@ if group == "nil" then
 	obbh = minetest.get_item_group(recipe, "oddly_breakable_by_hand")
 	flam = minetest.get_item_group(recipe, "flammable")
 	cgroup = {choppy=chop,oddly_breakable_by_hand=obbh,flammable=flam}
-	nocgroup = {choppy=chop,oddly_breakable_by_hand=obbh,flammable=flam,not_in_creative_inventory=1}
 else
 	cgroup = group
-	nocgroup = groupnici
 end
+
+function shallowcopy(orig)
+    local orig_type = type(orig)
+    local copy
+    if orig_type == 'table' then
+        copy = {}
+        for orig_key, orig_value in pairs(orig) do
+            copy[orig_key] = orig_value
+        end
+    else -- number, string, boolean, etc
+        copy = orig
+    end
+    return copy
+end
+
+
+nocgroup = shallowcopy(cgroup)
+nocgroup.not_in_creative_inventory = 1
 
 minetest.register_node(":viaduct:"..item.."_bridge", {
 	description = name.." Bridge",
@@ -794,7 +810,7 @@ function viaduct.register_node(name)
 		node_def.tile_images = nil
 	end
 
-	viaduct.register_custom(node_name, node_def.description, node_def.tiles, node_def.sound, "nil", "nil", name)
+	viaduct.register_custom(node_name, node_def.description, node_def.tiles, node_def.sound, "nil", name)
 end
 
 viaduct.register_node("default:wood")
