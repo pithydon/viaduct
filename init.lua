@@ -1,23 +1,5 @@
 viaduct = {}
 
-function viaduct.register_custom(item, name, tile, sound, group, recipe)
-
-local tile_collection
-if type(tile) == "string" then
-	tile_collection[1] = tile
-else
-	tile_collection = table.copy(tile)
-end
-
-if group == nil then
-	chop = minetest.get_item_group(recipe, "choppy")
-	obbh = minetest.get_item_group(recipe, "oddly_breakable_by_hand")
-	flam = minetest.get_item_group(recipe, "flammable")
-	cgroup = {choppy=chop,oddly_breakable_by_hand=obbh,flammable=flam}
-else
-	cgroup = group
-end
-
 function shallowcopy(orig)
     local orig_type = type(orig)
     local copy
@@ -32,7 +14,16 @@ function shallowcopy(orig)
     return copy
 end
 
-nocgroup = shallowcopy(cgroup)
+function viaduct.register_custom(item, name, tile, sound, group, recipe)
+
+local tile_collection
+if type(tile) == "string" then
+	tile_collection[1] = tile
+else
+	tile_collection = table.copy(tile)
+end
+
+nocgroup = shallowcopy(group)
 nocgroup.not_in_creative_inventory = 1
 
 minetest.register_node(":viaduct:"..item.."_bridge", {
@@ -64,7 +55,7 @@ minetest.register_node(":viaduct:"..item.."_bridge", {
 	},
 	drop = "viaduct:"..item.."_bridge",
 	sounds = sound,
-	groups = cgroup,
+	groups = group,
 })
 
 minetest.register_node(":viaduct:"..item.."_bridge_w", {
@@ -677,53 +668,40 @@ minetest.register_abm({
 	interval = 1,
 	chance = 1,
 	action = function(pos, node)
-		local north = {x = pos.x, y = pos.y, z = pos.z + 1}
-		local east = {x = pos.x + 1, y = pos.y, z = pos.z}
-		local south = {x = pos.x, y = pos.y, z = pos.z - 1}
-		local west = {x = pos.x - 1, y = pos.y, z = pos.z}
-		local northdown = {x = pos.x, y = pos.y - 1, z = pos.z + 1}
-		local eastdown = {x = pos.x + 1, y = pos.y - 1, z = pos.z}
-		local southdown = {x = pos.x, y = pos.y - 1, z = pos.z - 1}
-		local westdown = {x = pos.x - 1, y = pos.y - 1, z = pos.z}
-		local above = {x = pos.x, y = pos.y + 1, z = pos.z}
-		local northup = {x = pos.x, y = pos.y + 1, z = pos.z + 1}
-		local eastup = {x = pos.x + 1, y = pos.y + 1, z = pos.z}
-		local southup = {x = pos.x, y = pos.y + 1, z = pos.z - 1}
-		local westup = {x = pos.x - 1, y = pos.y + 1, z = pos.z}
-		local noden = minetest.get_node(north)
-		local nodee = minetest.get_node(east)
-		local nodes = minetest.get_node(south)
-		local nodew = minetest.get_node(west)
-		local nodenu = minetest.get_node(northup)
-		local nodeeu = minetest.get_node(eastup)
-		local nodesu = minetest.get_node(southup)
-		local nodewu = minetest.get_node(westup)
-		local namea = minetest.get_node(above)
-		local namend = minetest.get_node(northdown)
-		local nameed = minetest.get_node(eastdown)
-		local namesd = minetest.get_node(southdown)
-		local namewd = minetest.get_node(westdown)
-		local namen = noden.name:split(':')[1]
-		local namee = nodee.name:split(':')[1]
-		local names = nodes.name:split(':')[1]
-		local namew = nodew.name:split(':')[1]
-		local namenu = nodenu.name:split(':')[1]
-		local nameeu = nodeeu.name:split(':')[1]
-		local namesu = nodesu.name:split(':')[1]
-		local namewu = nodewu.name:split(':')[1]
-		if namea.name == "air" then up = true else up = false end
-		if namen == "viaduct" or namend.name == "viaduct:"..item.."_bridge_us" then n = true else n = false end
-		if namee == "viaduct" or nameed.name == "viaduct:"..item.."_bridge_uw" then e = true else e = false end
-		if names == "viaduct" or namesd.name == "viaduct:"..item.."_bridge_un" then s = true else s = false end
-		if namew == "viaduct" or namewd.name == "viaduct:"..item.."_bridge_ue" then w = true else w = false end
-		if namenu == "viaduct" and up then nu = true else nu = false end
-		if nameeu == "viaduct" and up then eu = true else eu = false end
-		if namesu == "viaduct" and up then su = true else su = false end
-		if namewu == "viaduct" and up then wu = true else wu = false end
-		if namend.name == "air" then nd = true else nd = false end
-		if nameed.name == "air" then ed = true else ed = false end
-		if namesd.name == "air" then sd = true else sd = false end
-		if namewd.name == "air" then wd = true else wd = false end
+		local north = minetest.get_node({x = pos.x, y = pos.y, z = pos.z + 1})
+		local east = minetest.get_node({x = pos.x + 1, y = pos.y, z = pos.z})
+		local south = minetest.get_node({x = pos.x, y = pos.y, z = pos.z - 1})
+		local west = minetest.get_node({x = pos.x - 1, y = pos.y, z = pos.z})
+		local northup = minetest.get_node({x = pos.x, y = pos.y + 1, z = pos.z + 1})
+		local eastup = minetest.get_node({x = pos.x + 1, y = pos.y + 1, z = pos.z})
+		local southup = minetest.get_node({x = pos.x, y = pos.y + 1, z = pos.z - 1})
+		local westup = minetest.get_node({x = pos.x - 1, y = pos.y + 1, z = pos.z})
+		local above = minetest.get_node({x = pos.x, y = pos.y + 1, z = pos.z})
+		local northdown = minetest.get_node({x = pos.x, y = pos.y - 1, z = pos.z + 1})
+		local eastdown = minetest.get_node({x = pos.x + 1, y = pos.y - 1, z = pos.z})
+		local southdown = minetest.get_node({x = pos.x, y = pos.y - 1, z = pos.z - 1})
+		local westdown = minetest.get_node({x = pos.x - 1, y = pos.y - 1, z = pos.z})
+		local modnorth = north.name:split(':')[1]
+		local modeast = east.name:split(':')[1]
+		local modsouth = south.name:split(':')[1]
+		local modwest = west.name:split(':')[1]
+		local modnorthup = northup.name:split(':')[1]
+		local modeastup = eastup.name:split(':')[1]
+		local modsouthup = southup.name:split(':')[1]
+		local modwestup = westup.name:split(':')[1]
+		if above.name == "air" then up = true else up = false end
+		if modnorth == "viaduct" or northdown.name == "viaduct:"..item.."_bridge_us" then n = true else n = false end
+		if modeast == "viaduct" or eastdown.name == "viaduct:"..item.."_bridge_uw" then e = true else e = false end
+		if modsouth == "viaduct" or southdown.name == "viaduct:"..item.."_bridge_un" then s = true else s = false end
+		if modwest == "viaduct" or westdown.name == "viaduct:"..item.."_bridge_ue" then w = true else w = false end
+		if modnorthup == "viaduct" and up then nu = true else nu = false end
+		if modeastup == "viaduct" and up then eu = true else eu = false end
+		if modsouthup == "viaduct" and up then su = true else su = false end
+		if modwestup == "viaduct" and up then wu = true else wu = false end
+		if northdown.name == "air" then nd = true else nd = false end
+		if eastdown.name == "air" then ed = true else ed = false end
+		if southdown.name == "air" then sd = true else sd = false end
+		if westdown.name == "air" then wd = true else wd = false end
 		if n and e and s and w then
 			minetest.set_node(pos, {name = "viaduct:"..item.."_bridge_nesw"})
 		elseif n and e and s and not w then
@@ -810,7 +788,10 @@ function viaduct.register_node(name)
 		node_def.tile_images = nil
 	end
 
-	viaduct.register_custom(node_name, node_def.description, node_def.tiles, node_def.sound, nil, name)
+	group = node_def.groups
+	group.wood = 0
+
+	viaduct.register_custom(node_name, node_def.description, node_def.tiles, node_def.sound, group, name)
 end
 
 viaduct.register_node("default:wood")
