@@ -1,19 +1,5 @@
 viaduct = {}
 
-function shallowcopy(orig)
-    local orig_type = type(orig)
-    local copy
-    if orig_type == 'table' then
-        copy = {}
-        for orig_key, orig_value in pairs(orig) do
-            copy[orig_key] = orig_value
-        end
-    else -- number, string, boolean, etc
-        copy = orig
-    end
-    return copy
-end
-
 function viaduct.register_custom(item, name, tile, sound, group, recipe)
 
 local tile_collection
@@ -23,7 +9,7 @@ else
 	tile_collection = table.copy(tile)
 end
 
-nocgroup = shallowcopy(group)
+nocgroup = table.copy(group)
 nocgroup.not_in_creative_inventory = 1
 
 minetest.register_node(":viaduct:"..item.."_bridge", {
