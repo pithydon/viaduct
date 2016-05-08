@@ -676,10 +676,14 @@ minetest.register_abm({
 		local modsouthup = southup.name:split(':')[1]
 		local modwestup = westup.name:split(':')[1]
 		if above.name == "air" then up = true else up = false end
-		if modnorth == "viaduct" or northdown.name == "viaduct:"..item.."_bridge_us" then n = true else n = false end
-		if modeast == "viaduct" or eastdown.name == "viaduct:"..item.."_bridge_uw" then e = true else e = false end
-		if modsouth == "viaduct" or southdown.name == "viaduct:"..item.."_bridge_un" then s = true else s = false end
-		if modwest == "viaduct" or westdown.name == "viaduct:"..item.."_bridge_ue" then w = true else w = false end
+		if northdown.name:split('_bridge_')[2] == "us" then bridgeus = true else bridgeus = false end
+		if eastdown.name:split('_bridge_')[2] == "uw" then bridgeuw = true else bridgeuw = false end
+		if southdown.name:split('_bridge_')[2] == "un" then bridgeun = true else bridgeun = false end
+		if westdown.name:split('_bridge_')[2] == "ue" then bridgeue = true else bridgeue = false end
+		if modnorth == "viaduct" or bridgeus then n = true else n = false end
+		if modeast == "viaduct" or bridgeuw then e = true else e = false end
+		if modsouth == "viaduct" or bridgeun then s = true else s = false end
+		if modwest == "viaduct" or bridgeue then w = true else w = false end
 		if modnorthup == "viaduct" and up then nu = true else nu = false end
 		if modeastup == "viaduct" and up then eu = true else eu = false end
 		if modsouthup == "viaduct" and up then su = true else su = false end
