@@ -764,6 +764,110 @@ minetest.register_abm({
 
 end
 
+function viaduct.register_custom_rope(item, name, tile, sound, group, recipe)
+
+local tile_collection
+if type(tile) == "string" then
+	tile_collection[1] = tile
+else
+	tile_collection = table.copy(tile)
+end
+
+nocgroup = table.copy(group)
+nocgroup.not_in_creative_inventory = 1
+
+minetest.register_node(":viaduct:"..item.."_bridge_rope", {
+	description = name.." Bridge",
+	tiles = tile_collection,
+	paramtype = "light",
+	drawtype = "nodebox",
+	node_box = {
+		type = "fixed",
+		fixed = {
+			{-0.5, 0.375, -0.5, -0.375, 0.5, 0.5},
+			{0.375, 0.375, -0.5, 0.5, 0.5, 0.5},
+			{-0.5, -0.5, -0.5, -0.375, -0.375, 0.5},
+			{0.375, -0.5, -0.5, 0.5, -0.375, 0.5},
+			{-0.5, -0.375, -0.0625, -0.375, 0.375, 0.0625},
+			{0.375, -0.375, -0.0625, 0.5, 0.375, 0.0625},
+			{-0.1875, -0.5, -0.5, -0.0625, -0.375, 0.5},
+			{0.0625, -0.5, -0.5, 0.1875, -0.375, 0.5},
+			{-0.375, -0.5, 0.25, 0.375, -0.375, 0.375},
+			{-0.375, -0.5, -0.0625, 0.375, -0.375, 0.0625},
+			{-0.375, -0.5, -0.375, 0.375, -0.375, -0.25},
+		},
+	},
+	selection_box = {
+		type = "fixed",
+		fixed = {-0.5, -0.5, -0.5, 0.5, 0.5, 0.5},
+	},
+	drop = "viaduct:"..item.."_bridge_rope",
+	sounds = sound,
+	groups = group,
+})
+
+minetest.register_node(":viaduct:"..item.."_bridge_rope_r", {
+	description = name.." Bridge",
+	tiles = tile_collection,
+	paramtype = "light",
+	drawtype = "nodebox",
+	node_box = {
+		type = "fixed",
+		fixed = {
+			{-0.5, 0.375, 0.375, 0.5, 0.5, 0.5},
+			{-0.5, 0.375, -0.5, 0.5, 0.5, -0.375},
+			{-0.5, -0.5, 0.375, 0.5, -0.375, 0.5},
+			{-0.5, -0.5, -0.5, 0.5, -0.375, -0.375},
+			{-0.0625, -0.375, 0.375, 0.0625, 0.375, 0.5},
+			{-0.0625, -0.375, -0.5, 0.0625, 0.375, -0.375},
+			{-0.5, -0.5, 0.1875, 0.5, -0.375, 0.0625},
+			{-0.5, -0.5, -0.0625, 0.5, -0.375, -0.1875},
+			{0.25, -0.5, -0.375, 0.375, -0.375, 0.375},
+			{-0.0625, -0.5, -0.375, 0.0625, -0.375, 0.375},
+			{-0.375, -0.5, -0.375, -0.25, -0.375, 0.375},
+		},
+	},
+	selection_box = {
+		type = "fixed",
+		fixed = {-0.5, -0.5, -0.5, 0.5, 0.5, 0.5},
+	},
+	drop = "viaduct:"..item.."_bridge_rope",
+	sounds = sound,
+	groups = nocgroup,
+})
+
+minetest.register_craft({
+	output = "viaduct:"..item.."_bridge_rope",
+	recipe = {
+		{recipe, "", recipe},
+		{"", "", ""},
+		{recipe, recipe, recipe},
+	}
+})
+
+minetest.register_abm({
+	nodenames = {
+		"viaduct:"..item.."_bridge_rope",
+		"viaduct:"..item.."_bridge_rope_r"
+
+	},
+	interval = 1,
+	chance = 1,
+	action = function(pos, node)
+		local north = minetest.get_node({x = pos.x, y = pos.y, z = pos.z + 1})
+		local south = minetest.get_node({x = pos.x, y = pos.y, z = pos.z - 1})
+		local modnorth = north.name:split(':')[1]
+		local modsouth = south.name:split(':')[1]
+		if modnorth == "viaduct" or modsouth == "viaduct" then
+			minetest.set_node(pos, {name = "viaduct:"..item.."_bridge_rope"})
+		else
+			minetest.set_node(pos, {name = "viaduct:"..item.."_bridge_rope_r"})
+		end
+	end,
+})
+
+end
+
 function viaduct.register_node(name)
 	local node_def = minetest.registered_nodes[name]
 	if not node_def then
@@ -778,10 +882,28 @@ function viaduct.register_node(name)
 		node_def.tile_images = nil
 	end
 
-	group = node_def.groups
+	group = table.copy(node_def.groups)
 	group.wood = 0
+	group.planks = 0
 
 	viaduct.register_custom(node_name, node_def.description, node_def.tiles, node_def.sound, group, name)
+end
+
+function viaduct.register_node_rope(name)
+	local node_def = minetest.registered_nodes[name]
+	if not node_def then
+		minetest.log("warning", "[Viaduct] Skipping unknown node: ".. name)
+		return
+	end
+
+	local node_name = name:split(':')[2]
+
+	if not node_def.tiles then
+		node_def.tiles = table.copy(node_def.tile_images)
+		node_def.tile_images = nil
+	end
+
+	viaduct.register_custom_rope(node_name, node_def.description, node_def.tiles, node_def.sound, node_def.groups, name)
 end
 
 viaduct.register_node("default:wood")
@@ -792,6 +914,7 @@ viaduct.register_node("default:aspen_wood")
 viaduct.register_node("default:planks")
 viaduct.register_node("default:planks_oak")
 viaduct.register_node("default:planks_birch")
+viaduct.register_node_rope("default:rope")
 
 if(minetest.get_modpath("deco")) then
 viaduct.register_node("deco:oak_plank")
@@ -800,10 +923,18 @@ viaduct.register_node("deco:cherry_plank")
 viaduct.register_node("deco:evergreen_plank")
 end
 
+if(minetest.get_modpath("lottblocks")) then
+viaduct.register_custom_rope("elven_rope", "Elven Rope", {"viaduct_elven_rope.png"}, nil, {oddly_breakable_by_hand = 3}, "lottblocks:elven_rope")
+end
+
 if(minetest.get_modpath("lottplants")) then
 viaduct.register_node("lottplants:pinewood")
 viaduct.register_node("lottplants:birchwood")
 viaduct.register_node("lottplants:alderwood")
 viaduct.register_node("lottplants:lebethronwood")
 viaduct.register_node("lottplants:mallornwood")
+end
+
+if(minetest.get_modpath("moreblocks")) then
+viaduct.register_custom_rope("rope", "Rope", {"viaduct_rope.png"}, default.node_sound_leaves_defaults(), {snappy = 3, flammable = 2}, "moreblocks:rope")
 end

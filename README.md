@@ -18,4 +18,13 @@ viaduct.register_custom("node_name", "description", {"tiles"}, sounds, {groups},
 ```
 "node_name" and "description" will have the word bridge added to the end.
 
+For rope type bridge use
+```lua
+viaduct.register_node_rope("mod:name")
+```
+or
+```lua
+viaduct.register_custom_rope("node_name", "description", {"tiles"}, sounds, {groups}, "recipe:node")
+```
+
 [pithydon]: <https://github.com/pithydon>
