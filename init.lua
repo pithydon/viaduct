@@ -923,7 +923,7 @@ viaduct.register_node("deco:cherry_plank")
 viaduct.register_node("deco:evergreen_plank")
 end
 
-if(minetest.get_modpath("lottblocks")) then
+if minetest.registered_nodes["lottblocks:elven_rope"] then
 viaduct.register_custom_rope("elven_rope", "Elven Rope", {"viaduct_elven_rope.png"}, nil, {oddly_breakable_by_hand = 3}, "lottblocks:elven_rope")
 end
 
