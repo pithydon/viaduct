@@ -845,6 +845,12 @@ minetest.register_craft({
 	}
 })
 
+minetest.register_craft({
+	type = "shapeless",
+	output = recipe.." 5",
+	recipe = {"viaduct:"..item.."_bridge_rope"},
+})
+
 minetest.register_abm({
 	nodenames = {
 		"viaduct:"..item.."_bridge_rope",
@@ -924,7 +930,7 @@ viaduct.register_node("deco:evergreen_plank")
 end
 
 if(minetest.get_modpath("hemp")) then
-viaduct.register_node_rope("hemp:rope")
+viaduct.register_node_rope("hemp:hemp_rope")
 end
 
 if minetest.registered_nodes["lottblocks:elven_rope"] then
