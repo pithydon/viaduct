@@ -39,7 +39,7 @@ function viaduct.register_wood_bridge(name, def)
 		sound = node_def.sounds
 	else
 		sound = def.sounds
-	ene
+	end
 
 	local tile_collection
 	if type(tile) == "string" then
@@ -833,7 +833,7 @@ function viaduct.register_rope_bridge(name, def)
 		sound = node_def.sounds
 	else
 		sound = def.sounds
-	ene
+	end
 
 	local tile_collection
 	if type(tile) == "string" then
