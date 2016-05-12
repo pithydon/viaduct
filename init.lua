@@ -10,23 +10,21 @@ function viaduct.register_wood_bridge(name, def)
 
 	local item = name:split(':')[2]
 
+	local desc
 	if not def.description then
 		desc = node_def.description.." Bridge"
 	else
 		desc = def.description
 	end
 
-	if not node_def.tiles then
-		node_def.tiles = table.copy(node_def.tile_images)
-		node_def.tile_images = nil
-	end
-
+	local tile
 	if not def.tiles then
 		tile = node_def.tiles
 	else
 		tile = def.tiles
 	end
 
+	local group
 	if not def.groups then
 		group = table.copy(node_def.groups)
 		group.wood = 0
@@ -35,29 +33,26 @@ function viaduct.register_wood_bridge(name, def)
 		group = def.groups
 	end
 
+	local sound
 	if not def.sounds then
 		sound = node_def.sounds
 	else
 		sound = def.sounds
 	end
 
-	local tile_collection
-	if type(tile) == "string" then
-		tile_collection[1] = tile
-	else
-		tile_collection = table.copy(tile)
-	end
-
-	nocgroup = table.copy(group)
+	local nocgroup = table.copy(group)
 	nocgroup.not_in_creative_inventory = 1
 
+	local stick
 	if not def.stick then
-		def.stick = "group:stick"
+		stick = "group:stick"
+	else
+		stick = def.stick
 	end
 
 minetest.register_node(":viaduct:"..item.."_bridge", {
 	description = desc,
-	tiles = tile_collection,
+	tiles = tile,
 	paramtype = "light",
 	drawtype = "nodebox",
 	node_box = {
@@ -89,7 +84,7 @@ minetest.register_node(":viaduct:"..item.."_bridge", {
 
 minetest.register_node(":viaduct:"..item.."_bridge_w", {
 	description = desc,
-	tiles = tile_collection,
+	tiles = tile,
 	paramtype = "light",
 	drawtype = "nodebox",
 	node_box = {
@@ -119,7 +114,7 @@ minetest.register_node(":viaduct:"..item.."_bridge_w", {
 
 minetest.register_node(":viaduct:"..item.."_bridge_s", {
 	description = desc,
-	tiles = tile_collection,
+	tiles = tile,
 	paramtype = "light",
 	drawtype = "nodebox",
 	node_box = {
@@ -149,7 +144,7 @@ minetest.register_node(":viaduct:"..item.."_bridge_s", {
 
 minetest.register_node(":viaduct:"..item.."_bridge_sw", {
 	description = desc,
-	tiles = tile_collection,
+	tiles = tile,
 	paramtype = "light",
 	drawtype = "nodebox",
 	node_box = {
@@ -177,7 +172,7 @@ minetest.register_node(":viaduct:"..item.."_bridge_sw", {
 
 minetest.register_node(":viaduct:"..item.."_bridge_e", {
 	description = desc,
-	tiles = tile_collection,
+	tiles = tile,
 	paramtype = "light",
 	drawtype = "nodebox",
 	node_box = {
@@ -207,7 +202,7 @@ minetest.register_node(":viaduct:"..item.."_bridge_e", {
 
 minetest.register_node(":viaduct:"..item.."_bridge_ew", {
 	description = desc,
-	tiles = tile_collection,
+	tiles = tile,
 	paramtype = "light",
 	drawtype = "nodebox",
 	node_box = {
@@ -235,7 +230,7 @@ minetest.register_node(":viaduct:"..item.."_bridge_ew", {
 
 minetest.register_node(":viaduct:"..item.."_bridge_es", {
 	description = desc,
-	tiles = tile_collection,
+	tiles = tile,
 	paramtype = "light",
 	drawtype = "nodebox",
 	node_box = {
@@ -263,7 +258,7 @@ minetest.register_node(":viaduct:"..item.."_bridge_es", {
 
 minetest.register_node(":viaduct:"..item.."_bridge_esw", {
 	description = desc,
-	tiles = tile_collection,
+	tiles = tile,
 	paramtype = "light",
 	drawtype = "nodebox",
 	node_box = {
@@ -289,7 +284,7 @@ minetest.register_node(":viaduct:"..item.."_bridge_esw", {
 
 minetest.register_node(":viaduct:"..item.."_bridge_n", {
 	description = desc,
-	tiles = tile_collection,
+	tiles = tile,
 	paramtype = "light",
 	drawtype = "nodebox",
 	node_box = {
@@ -319,7 +314,7 @@ minetest.register_node(":viaduct:"..item.."_bridge_n", {
 
 minetest.register_node(":viaduct:"..item.."_bridge_nw", {
 	description = desc,
-	tiles = tile_collection,
+	tiles = tile,
 	paramtype = "light",
 	drawtype = "nodebox",
 	node_box = {
@@ -347,7 +342,7 @@ minetest.register_node(":viaduct:"..item.."_bridge_nw", {
 
 minetest.register_node(":viaduct:"..item.."_bridge_ns", {
 	description = desc,
-	tiles = tile_collection,
+	tiles = tile,
 	paramtype = "light",
 	drawtype = "nodebox",
 	node_box = {
@@ -375,7 +370,7 @@ minetest.register_node(":viaduct:"..item.."_bridge_ns", {
 
 minetest.register_node(":viaduct:"..item.."_bridge_nsw", {
 	description = desc,
-	tiles = tile_collection,
+	tiles = tile,
 	paramtype = "light",
 	drawtype = "nodebox",
 	node_box = {
@@ -401,7 +396,7 @@ minetest.register_node(":viaduct:"..item.."_bridge_nsw", {
 
 minetest.register_node(":viaduct:"..item.."_bridge_ne", {
 	description = desc,
-	tiles = tile_collection,
+	tiles = tile,
 	paramtype = "light",
 	drawtype = "nodebox",
 	node_box = {
@@ -429,7 +424,7 @@ minetest.register_node(":viaduct:"..item.."_bridge_ne", {
 
 minetest.register_node(":viaduct:"..item.."_bridge_new", {
 	description = desc,
-	tiles = tile_collection,
+	tiles = tile,
 	paramtype = "light",
 	drawtype = "nodebox",
 	node_box = {
@@ -455,7 +450,7 @@ minetest.register_node(":viaduct:"..item.."_bridge_new", {
 
 minetest.register_node(":viaduct:"..item.."_bridge_nes", {
 	description = desc,
-	tiles = tile_collection,
+	tiles = tile,
 	paramtype = "light",
 	drawtype = "nodebox",
 	node_box = {
@@ -481,7 +476,7 @@ minetest.register_node(":viaduct:"..item.."_bridge_nes", {
 
 minetest.register_node(":viaduct:"..item.."_bridge_nesw", {
 	description = desc,
-	tiles = tile_collection,
+	tiles = tile,
 	paramtype = "light",
 	drawtype = "nodebox",
 	node_box = {
@@ -505,7 +500,7 @@ minetest.register_node(":viaduct:"..item.."_bridge_nesw", {
 
 minetest.register_node(":viaduct:"..item.."_bridge_un", {
 	description = desc,
-	tiles = tile_collection,
+	tiles = tile,
 	paramtype = "light",
 	drawtype = "nodebox",
 	node_box = {
@@ -542,7 +537,7 @@ minetest.register_node(":viaduct:"..item.."_bridge_un", {
 
 minetest.register_node(":viaduct:"..item.."_bridge_ue", {
 	description = desc,
-	tiles = tile_collection,
+	tiles = tile,
 	paramtype = "light",
 	drawtype = "nodebox",
 	node_box = {
@@ -579,7 +574,7 @@ minetest.register_node(":viaduct:"..item.."_bridge_ue", {
 
 minetest.register_node(":viaduct:"..item.."_bridge_us", {
 	description = desc,
-	tiles = tile_collection,
+	tiles = tile,
 	paramtype = "light",
 	drawtype = "nodebox",
 	node_box = {
@@ -616,7 +611,7 @@ minetest.register_node(":viaduct:"..item.."_bridge_us", {
 
 minetest.register_node(":viaduct:"..item.."_bridge_uw", {
 	description = desc,
-	tiles = tile_collection,
+	tiles = tile,
 	paramtype = "light",
 	drawtype = "nodebox",
 	node_box = {
@@ -654,8 +649,8 @@ minetest.register_node(":viaduct:"..item.."_bridge_uw", {
 minetest.register_craft({
 	output = "viaduct:"..item.."_bridge 3",
 	recipe = {
-		{def.stick, "", def.stick},
-		{def.stick, "", def.stick},
+		{stick, "", stick},
+		{stick, "", stick},
 		{name, name, name},
 	}
 })
@@ -806,48 +801,40 @@ function viaduct.register_rope_bridge(name, def)
 
 	local item = name:split(':')[2]
 
+	local desc
 	if not def.description then
 		desc = node_def.description.." Bridge"
 	else
 		desc = def.description
 	end
 
-	if not node_def.tiles then
-		node_def.tiles = table.copy(node_def.tile_images)
-		node_def.tile_images = nil
-	end
-
+	local tile
 	if not def.tiles then
 		tile = node_def.tiles
 	else
 		tile = def.tiles
 	end
 
+	local group
 	if not def.groups then
 		group = table.copy(node_def.groups)
 	else
 		group = def.groups
 	end
 
+	local sound
 	if not def.sounds then
 		sound = node_def.sounds
 	else
 		sound = def.sounds
 	end
 
-	local tile_collection
-	if type(tile) == "string" then
-		tile_collection[1] = tile
-	else
-		tile_collection = table.copy(tile)
-	end
-
-nocgroup = table.copy(group)
-nocgroup.not_in_creative_inventory = 1
+	local nocgroup = table.copy(group)
+	nocgroup.not_in_creative_inventory = 1
 
 minetest.register_node(":viaduct:"..item.."_bridge_rope", {
 	description = desc,
-	tiles = tile_collection,
+	tiles = tile,
 	paramtype = "light",
 	drawtype = "nodebox",
 	node_box = {
@@ -877,7 +864,7 @@ minetest.register_node(":viaduct:"..item.."_bridge_rope", {
 
 minetest.register_node(":viaduct:"..item.."_bridge_rope_r", {
 	description = desc,
-	tiles = tile_collection,
+	tiles = tile,
 	paramtype = "light",
 	drawtype = "nodebox",
 	node_box = {
@@ -945,9 +932,9 @@ end
 
 viaduct.register_wood_bridge("default:wood", {description="Wooden Bridge"})
 viaduct.register_wood_bridge("default:junglewood", {description="Junglewood Bridge"})
-viaduct.register_wood_bridge("default:pine_wood", {description="Pine Bridge"})
-viaduct.register_wood_bridge("default:acacia_wood", {description="Acacia Bridge"})
-viaduct.register_wood_bridge("default:aspen_wood", {description="Aspen Bridge"})
+viaduct.register_wood_bridge("default:pine_wood", {description="Pine Wood Bridge"})
+viaduct.register_wood_bridge("default:acacia_wood", {description="Acacia Wood Bridge"})
+viaduct.register_wood_bridge("default:aspen_wood", {description="Aspen Wood Bridge"})
 viaduct.register_wood_bridge("default:planks", {})
 viaduct.register_wood_bridge("default:planks_oak", {})
 viaduct.register_wood_bridge("default:planks_birch", {})
