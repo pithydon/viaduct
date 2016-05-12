@@ -702,22 +702,37 @@ minetest.register_abm({
 		local modeastup = eastup.name:split(':')[1]
 		local modsouthup = southup.name:split(':')[1]
 		local modwestup = westup.name:split(':')[1]
-		if above.name == "air" then up = true else up = false end
+		local bridgeus
 		if northdown.name:split('_bridge_')[2] == "us" then bridgeus = true else bridgeus = false end
+		local bridgeuw
 		if eastdown.name:split('_bridge_')[2] == "uw" then bridgeuw = true else bridgeuw = false end
+		local bridgeun
 		if southdown.name:split('_bridge_')[2] == "un" then bridgeun = true else bridgeun = false end
+		local bridgeue
 		if westdown.name:split('_bridge_')[2] == "ue" then bridgeue = true else bridgeue = false end
+		local n
 		if modnorth == "viaduct" or bridgeus then n = true else n = false end
+		local e
 		if modeast == "viaduct" or bridgeuw then e = true else e = false end
+		local s
 		if modsouth == "viaduct" or bridgeun then s = true else s = false end
+		local w
 		if modwest == "viaduct" or bridgeue then w = true else w = false end
-		if modnorthup == "viaduct" and up then nu = true else nu = false end
-		if modeastup == "viaduct" and up then eu = true else eu = false end
-		if modsouthup == "viaduct" and up then su = true else su = false end
-		if modwestup == "viaduct" and up then wu = true else wu = false end
+		local nu
+		if modnorthup == "viaduct" and above.name == "air" then nu = true else nu = false end
+		local eu
+		if modeastup == "viaduct" and above.name == "air" then eu = true else eu = false end
+		local su
+		if modsouthup == "viaduct" and above.name == "air" then su = true else su = false end
+		local wu
+		if modwestup == "viaduct" and above.name == "air" then wu = true else wu = false end
+		local nd
 		if northdown.name == "air" then nd = true else nd = false end
+		local ed
 		if eastdown.name == "air" then ed = true else ed = false end
+		local sd
 		if southdown.name == "air" then sd = true else sd = false end
+		local wd
 		if westdown.name == "air" then wd = true else wd = false end
 		if n and e and s and w then
 			minetest.set_node(pos, {name = "viaduct:"..item.."_bridge_nesw"})
