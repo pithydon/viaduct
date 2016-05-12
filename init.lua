@@ -1,19 +1,62 @@
 viaduct = {}
 
-function viaduct.register_custom(item, name, tile, sound, group, recipe)
+function viaduct.register_wood_bridge(name, def)
 
-local tile_collection
-if type(tile) == "string" then
-	tile_collection[1] = tile
-else
-	tile_collection = table.copy(tile)
-end
+	local node_def = minetest.registered_nodes[name]
+	if not node_def then
+		minetest.log("warning", "[Viaduct] Skipping unknown node: ".. name)
+		return
+	end
 
-nocgroup = table.copy(group)
-nocgroup.not_in_creative_inventory = 1
+	local item = name:split(':')[2]
+
+	if not def.description then
+		desc = node_def.description.." Bridge"
+	else
+		desc = def.description
+	end
+
+	if not node_def.tiles then
+		node_def.tiles = table.copy(node_def.tile_images)
+		node_def.tile_images = nil
+	end
+
+	if not def.tiles then
+		tile = node_def.tiles
+	else
+		tile = def.tiles
+	end
+
+	if not def.groups then
+		group = table.copy(node_def.groups)
+		group.wood = 0
+		group.planks = 0
+	else
+		group = def.groups
+	end
+
+	if not def.sounds then
+		sound = node_def.sounds
+	else
+		sound = def.sounds
+	ene
+
+	local tile_collection
+	if type(tile) == "string" then
+		tile_collection[1] = tile
+	else
+		tile_collection = table.copy(tile)
+	end
+
+	nocgroup = table.copy(group)
+	nocgroup.not_in_creative_inventory = 1
+
+	if not def.stick then
+		def.stick = "group:stick"
+	end
 
 minetest.register_node(":viaduct:"..item.."_bridge", {
-	description = name.." Bridge",
+	description = desc,
 	tiles = tile_collection,
 	paramtype = "light",
 	drawtype = "nodebox",
@@ -45,7 +88,7 @@ minetest.register_node(":viaduct:"..item.."_bridge", {
 })
 
 minetest.register_node(":viaduct:"..item.."_bridge_w", {
-	description = name.." Bridge",
+	description = desc,
 	tiles = tile_collection,
 	paramtype = "light",
 	drawtype = "nodebox",
@@ -75,7 +118,7 @@ minetest.register_node(":viaduct:"..item.."_bridge_w", {
 })
 
 minetest.register_node(":viaduct:"..item.."_bridge_s", {
-	description = name.." Bridge",
+	description = desc,
 	tiles = tile_collection,
 	paramtype = "light",
 	drawtype = "nodebox",
@@ -105,7 +148,7 @@ minetest.register_node(":viaduct:"..item.."_bridge_s", {
 })
 
 minetest.register_node(":viaduct:"..item.."_bridge_sw", {
-	description = name.." Bridge",
+	description = desc,
 	tiles = tile_collection,
 	paramtype = "light",
 	drawtype = "nodebox",
@@ -133,7 +176,7 @@ minetest.register_node(":viaduct:"..item.."_bridge_sw", {
 })
 
 minetest.register_node(":viaduct:"..item.."_bridge_e", {
-	description = name.." Bridge",
+	description = desc,
 	tiles = tile_collection,
 	paramtype = "light",
 	drawtype = "nodebox",
@@ -163,7 +206,7 @@ minetest.register_node(":viaduct:"..item.."_bridge_e", {
 })
 
 minetest.register_node(":viaduct:"..item.."_bridge_ew", {
-	description = name.." Bridge",
+	description = desc,
 	tiles = tile_collection,
 	paramtype = "light",
 	drawtype = "nodebox",
@@ -191,7 +234,7 @@ minetest.register_node(":viaduct:"..item.."_bridge_ew", {
 })
 
 minetest.register_node(":viaduct:"..item.."_bridge_es", {
-	description = name.." Bridge",
+	description = desc,
 	tiles = tile_collection,
 	paramtype = "light",
 	drawtype = "nodebox",
@@ -219,7 +262,7 @@ minetest.register_node(":viaduct:"..item.."_bridge_es", {
 })
 
 minetest.register_node(":viaduct:"..item.."_bridge_esw", {
-	description = name.." Bridge",
+	description = desc,
 	tiles = tile_collection,
 	paramtype = "light",
 	drawtype = "nodebox",
@@ -245,7 +288,7 @@ minetest.register_node(":viaduct:"..item.."_bridge_esw", {
 })
 
 minetest.register_node(":viaduct:"..item.."_bridge_n", {
-	description = name.." Bridge",
+	description = desc,
 	tiles = tile_collection,
 	paramtype = "light",
 	drawtype = "nodebox",
@@ -275,7 +318,7 @@ minetest.register_node(":viaduct:"..item.."_bridge_n", {
 })
 
 minetest.register_node(":viaduct:"..item.."_bridge_nw", {
-	description = name.." Bridge",
+	description = desc,
 	tiles = tile_collection,
 	paramtype = "light",
 	drawtype = "nodebox",
@@ -303,7 +346,7 @@ minetest.register_node(":viaduct:"..item.."_bridge_nw", {
 })
 
 minetest.register_node(":viaduct:"..item.."_bridge_ns", {
-	description = name.." Bridge",
+	description = desc,
 	tiles = tile_collection,
 	paramtype = "light",
 	drawtype = "nodebox",
@@ -331,7 +374,7 @@ minetest.register_node(":viaduct:"..item.."_bridge_ns", {
 })
 
 minetest.register_node(":viaduct:"..item.."_bridge_nsw", {
-	description = name.." Bridge",
+	description = desc,
 	tiles = tile_collection,
 	paramtype = "light",
 	drawtype = "nodebox",
@@ -357,7 +400,7 @@ minetest.register_node(":viaduct:"..item.."_bridge_nsw", {
 })
 
 minetest.register_node(":viaduct:"..item.."_bridge_ne", {
-	description = name.." Bridge",
+	description = desc,
 	tiles = tile_collection,
 	paramtype = "light",
 	drawtype = "nodebox",
@@ -385,7 +428,7 @@ minetest.register_node(":viaduct:"..item.."_bridge_ne", {
 })
 
 minetest.register_node(":viaduct:"..item.."_bridge_new", {
-	description = name.." Bridge",
+	description = desc,
 	tiles = tile_collection,
 	paramtype = "light",
 	drawtype = "nodebox",
@@ -411,7 +454,7 @@ minetest.register_node(":viaduct:"..item.."_bridge_new", {
 })
 
 minetest.register_node(":viaduct:"..item.."_bridge_nes", {
-	description = name.." Bridge",
+	description = desc,
 	tiles = tile_collection,
 	paramtype = "light",
 	drawtype = "nodebox",
@@ -437,7 +480,7 @@ minetest.register_node(":viaduct:"..item.."_bridge_nes", {
 })
 
 minetest.register_node(":viaduct:"..item.."_bridge_nesw", {
-	description = name.." Bridge",
+	description = desc,
 	tiles = tile_collection,
 	paramtype = "light",
 	drawtype = "nodebox",
@@ -461,7 +504,7 @@ minetest.register_node(":viaduct:"..item.."_bridge_nesw", {
 })
 
 minetest.register_node(":viaduct:"..item.."_bridge_un", {
-	description = name.." Bridge",
+	description = desc,
 	tiles = tile_collection,
 	paramtype = "light",
 	drawtype = "nodebox",
@@ -498,7 +541,7 @@ minetest.register_node(":viaduct:"..item.."_bridge_un", {
 })
 
 minetest.register_node(":viaduct:"..item.."_bridge_ue", {
-	description = name.." Bridge",
+	description = desc,
 	tiles = tile_collection,
 	paramtype = "light",
 	drawtype = "nodebox",
@@ -535,7 +578,7 @@ minetest.register_node(":viaduct:"..item.."_bridge_ue", {
 })
 
 minetest.register_node(":viaduct:"..item.."_bridge_us", {
-	description = name.." Bridge",
+	description = desc,
 	tiles = tile_collection,
 	paramtype = "light",
 	drawtype = "nodebox",
@@ -572,7 +615,7 @@ minetest.register_node(":viaduct:"..item.."_bridge_us", {
 })
 
 minetest.register_node(":viaduct:"..item.."_bridge_uw", {
-	description = name.." Bridge",
+	description = desc,
 	tiles = tile_collection,
 	paramtype = "light",
 	drawtype = "nodebox",
@@ -611,22 +654,11 @@ minetest.register_node(":viaduct:"..item.."_bridge_uw", {
 minetest.register_craft({
 	output = "viaduct:"..item.."_bridge 3",
 	recipe = {
-		{"group:stick", "", "group:stick"},
-		{"group:stick", "", "group:stick"},
-		{recipe, recipe, recipe},
+		{def.stick, "", def.stick},
+		{def.stick, "", def.stick},
+		{name, name, name},
 	}
 })
-
-if(minetest.get_modpath("tools")) then
-minetest.register_craft({
-	output = "viaduct:"..item.."_bridge 3",
-	recipe = {
-		{"tools:stick", "", "tools:stick"},
-		{"tools:stick", "", "tools:stick"},
-		{recipe, recipe, recipe},
-	}
-})
-end
 
 minetest.register_abm({
 	nodenames = {
@@ -764,20 +796,57 @@ minetest.register_abm({
 
 end
 
-function viaduct.register_custom_rope(item, name, tile, sound, group, recipe)
+function viaduct.register_rope_bridge(name, def)
 
-local tile_collection
-if type(tile) == "string" then
-	tile_collection[1] = tile
-else
-	tile_collection = table.copy(tile)
-end
+	local node_def = minetest.registered_nodes[name]
+	if not node_def then
+		minetest.log("warning", "[Viaduct] Skipping unknown node: ".. name)
+		return
+	end
+
+	local item = name:split(':')[2]
+
+	if not def.description then
+		desc = node_def.description.." Bridge"
+	else
+		desc = def.description
+	end
+
+	if not node_def.tiles then
+		node_def.tiles = table.copy(node_def.tile_images)
+		node_def.tile_images = nil
+	end
+
+	if not def.tiles then
+		tile = node_def.tiles
+	else
+		tile = def.tiles
+	end
+
+	if not def.groups then
+		group = table.copy(node_def.groups)
+	else
+		group = def.groups
+	end
+
+	if not def.sounds then
+		sound = node_def.sounds
+	else
+		sound = def.sounds
+	ene
+
+	local tile_collection
+	if type(tile) == "string" then
+		tile_collection[1] = tile
+	else
+		tile_collection = table.copy(tile)
+	end
 
 nocgroup = table.copy(group)
 nocgroup.not_in_creative_inventory = 1
 
 minetest.register_node(":viaduct:"..item.."_bridge_rope", {
-	description = name.." Bridge",
+	description = desc,
 	tiles = tile_collection,
 	paramtype = "light",
 	drawtype = "nodebox",
@@ -807,7 +876,7 @@ minetest.register_node(":viaduct:"..item.."_bridge_rope", {
 })
 
 minetest.register_node(":viaduct:"..item.."_bridge_rope_r", {
-	description = name.." Bridge",
+	description = desc,
 	tiles = tile_collection,
 	paramtype = "light",
 	drawtype = "nodebox",
@@ -839,15 +908,15 @@ minetest.register_node(":viaduct:"..item.."_bridge_rope_r", {
 minetest.register_craft({
 	output = "viaduct:"..item.."_bridge_rope",
 	recipe = {
-		{recipe, "", recipe},
+		{name, "", name},
 		{"", "", ""},
-		{recipe, recipe, recipe},
+		{name, name, name},
 	}
 })
 
 minetest.register_craft({
 	type = "shapeless",
-	output = recipe.." 5",
+	output = name.." 5",
 	recipe = {"viaduct:"..item.."_bridge_rope"},
 })
 
@@ -874,77 +943,69 @@ minetest.register_abm({
 
 end
 
-function viaduct.register_node(name)
-	local node_def = minetest.registered_nodes[name]
-	if not node_def then
-		minetest.log("warning", "[Viaduct] Skipping unknown node: ".. name)
-		return
-	end
-
-	local node_name = name:split(':')[2]
-
-	if not node_def.tiles then
-		node_def.tiles = table.copy(node_def.tile_images)
-		node_def.tile_images = nil
-	end
-
-	group = table.copy(node_def.groups)
-	group.wood = 0
-	group.planks = 0
-
-	viaduct.register_custom(node_name, node_def.description, node_def.tiles, node_def.sound, group, name)
-end
-
-function viaduct.register_node_rope(name)
-	local node_def = minetest.registered_nodes[name]
-	if not node_def then
-		minetest.log("warning", "[Viaduct] Skipping unknown node: ".. name)
-		return
-	end
-
-	local node_name = name:split(':')[2]
-
-	if not node_def.tiles then
-		node_def.tiles = table.copy(node_def.tile_images)
-		node_def.tile_images = nil
-	end
-
-	viaduct.register_custom_rope(node_name, node_def.description, node_def.tiles, node_def.sound, node_def.groups, name)
-end
-
-viaduct.register_node("default:wood")
-viaduct.register_node("default:junglewood")
-viaduct.register_node("default:pine_wood")
-viaduct.register_node("default:acacia_wood")
-viaduct.register_node("default:aspen_wood")
-viaduct.register_node("default:planks")
-viaduct.register_node("default:planks_oak")
-viaduct.register_node("default:planks_birch")
-viaduct.register_node_rope("default:rope")
+viaduct.register_wood_bridge("default:wood", {description="Wooden Bridge"})
+viaduct.register_wood_bridge("default:junglewood", {description="Junglewood Bridge"})
+viaduct.register_wood_bridge("default:pine_wood", {description="Pine Bridge"})
+viaduct.register_wood_bridge("default:acacia_wood", {description="Acacia Bridge"})
+viaduct.register_wood_bridge("default:aspen_wood", {description="Aspen Bridge"})
+viaduct.register_wood_bridge("default:planks", {})
+viaduct.register_wood_bridge("default:planks_oak", {})
+viaduct.register_wood_bridge("default:planks_birch", {})
+viaduct.register_rope_bridge("default:rope", {})
 
 if(minetest.get_modpath("deco")) then
-viaduct.register_node("deco:oak_plank")
-viaduct.register_node("deco:birch_plank")
-viaduct.register_node("deco:cherry_plank")
-viaduct.register_node("deco:evergreen_plank")
+viaduct.register_wood_bridge("deco:oak_plank", {stick="tools:stick"})
+viaduct.register_wood_bridge("deco:birch_plank", {stick="tools:stick"})
+viaduct.register_wood_bridge("deco:cherry_plank", {stick="tools:stick"})
+viaduct.register_wood_bridge("deco:evergreen_plank", {stick="tools:stick"})
 end
 
 if(minetest.get_modpath("hemp")) then
-viaduct.register_node_rope("hemp:hemp_rope")
+viaduct.register_rope_bridge("hemp:hemp_rope", {})
 end
 
-if minetest.registered_nodes["lottblocks:elven_rope"] then
-viaduct.register_custom_rope("elven_rope", "Elven Rope", {"viaduct_elven_rope.png"}, nil, {oddly_breakable_by_hand = 3}, "lottblocks:elven_rope")
+if(minetest.get_modpath("lottblocks")) then
+viaduct.register_rope_bridge("lottblocks:elven_rope", {tiles={"viaduct_elven_rope.png"}})
 end
 
 if(minetest.get_modpath("lottplants")) then
-viaduct.register_node("lottplants:pinewood")
-viaduct.register_node("lottplants:birchwood")
-viaduct.register_node("lottplants:alderwood")
-viaduct.register_node("lottplants:lebethronwood")
-viaduct.register_node("lottplants:mallornwood")
+viaduct.register_wood_bridge("lottplants:pinewood", {})
+viaduct.register_wood_bridge("lottplants:birchwood", {})
+viaduct.register_wood_bridge("lottplants:alderwood", {})
+viaduct.register_wood_bridge("lottplants:lebethronwood", {})
+viaduct.register_wood_bridge("lottplants:mallornwood", {})
 end
 
 if(minetest.get_modpath("moreblocks")) then
-viaduct.register_custom_rope("rope", "Rope", {"viaduct_rope.png"}, default.node_sound_leaves_defaults(), {snappy = 3, flammable = 2}, "moreblocks:rope")
+viaduct.register_rope_bridge("moreblocks:rope", {tiles={"viaduct_rope.png"}})
+end
+
+-- OLD API
+
+function viaduct.register_node(name)
+	viaduct.register_wood_bridge(name, {})
+end
+
+function viaduct.register_custom(item, name, tile, sound, group, recipe)
+	local legdef = {
+		description = name.." Bridge",
+		tiles = tile,
+		sounds = sound,
+		groups = group,
+	}
+	viaduct.register_wood_bridge(recipe, legdef)
+end
+
+function viaduct.register_node_rope(name)
+	viaduct.register_rope_bridge(name, {})
+end
+
+function viaduct.register_custom_rope(item, name, tile, sound, group, recipe)
+	local legdef = {
+		description = name.." Bridge",
+		tiles = tile,
+		sounds = sound,
+		groups = group,
+	}
+	viaduct.register_rope_bridge(recipe, legdef)
 end

@@ -6,25 +6,31 @@ Licensed under the unlicense, see LICENSE.txt
 
 mod api:
 
-To make a new bridge type use
 ```lua
-viaduct.register_node("mod:name")
-```
-Replace "mod:name" with the node name you wish to make the bridge out of. eg "default:wood"
+viaduct.register_wood_bridge("recipe:node", {item definition})
 
-To make a new bridge type with custom properties use
-```lua
-viaduct.register_custom("node_name", "description", {"tiles"}, sounds, {groups}, "recipe:node")
+viaduct.register_rope_bridge("recipe:node", {item definition})
 ```
-"node_name" and "description" will have the word bridge added to the end.
 
-For rope type bridge use
+examples
+
 ```lua
-viaduct.register_node_rope("mod:name")
+viaduct.register_wood_bridge("default:wood", {
+	description = "Wooden Bridge",
+	tiles = {"default_wood.png"},
+	groups = {choppy = 2, oddly_breakable_by_hand = 2, flammable = 3},
+	sounds = default.node_sound_wood_defaults(),
+	stick = "groups:stick",
+})
 ```
-or
+stick is used to define what to use in the craft recipe for rails.
+
+Any part of the item definition can also be blank.
+
 ```lua
-viaduct.register_custom_rope("node_name", "description", {"tiles"}, sounds, {groups}, "recipe:node")
+viaduct.register_wood_bridge("default:wood", {})
 ```
+
+Older api is supported but not documented.
 
 [pithydon]: <https://github.com/pithydon>
