@@ -2,7 +2,11 @@
 
 Connected node bridges for Minetest.
 
-Licensed under the unlicense, see LICENSE.txt
+code license: unlicense
+
+texture license: WTFPL
+
+see LICENSE.txt
 
 mod api:
 

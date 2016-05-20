@@ -950,9 +950,14 @@ viaduct.register_wood_bridge("default:junglewood", {description="Junglewood Brid
 viaduct.register_wood_bridge("default:pine_wood", {description="Pine Wood Bridge"})
 viaduct.register_wood_bridge("default:acacia_wood", {description="Acacia Wood Bridge"})
 viaduct.register_wood_bridge("default:aspen_wood", {description="Aspen Wood Bridge"})
+viaduct.register_wood_bridge("default:birch_wood", {})
+viaduct.register_wood_bridge("default:maple_wood", {})
+viaduct.register_wood_bridge("default:cherry_wood", {})
+viaduct.register_wood_bridge("default:papyrus_block", {stick="default:papyrus"})
 viaduct.register_wood_bridge("default:planks", {})
 viaduct.register_wood_bridge("default:planks_oak", {})
 viaduct.register_wood_bridge("default:planks_birch", {})
+viaduct.register_rope_bridge("default:vine", {tiles={"viaduct_vine.png"}})
 viaduct.register_rope_bridge("default:rope", {})
 
 if(minetest.get_modpath("deco")) then
@@ -979,7 +984,7 @@ viaduct.register_wood_bridge("lottplants:mallornwood", {})
 end
 
 if(minetest.get_modpath("moreblocks")) then
-viaduct.register_rope_bridge("moreblocks:rope", {tiles={"viaduct_rope.png"}})
+viaduct.register_rope_bridge("moreblocks:rope", {tiles={"viaduct_vine.png"}})
 end
 
 -- OLD API
