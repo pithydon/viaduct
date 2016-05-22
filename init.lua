@@ -4,7 +4,7 @@ function viaduct.register_wood_bridge(name, def)
 
 	local node_def = minetest.registered_nodes[name]
 	if not node_def then
-		minetest.log("warning", "[Viaduct] Skipping unknown node: ".. name)
+		if minetest.get_current_modname() ~= "viaduct" then minetest.log("warning", "["..minetest.get_current_modname().."] node "..name.." not found in function viaduct.register_wood_bridge") end
 		return
 	end
 
@@ -810,7 +810,7 @@ function viaduct.register_rope_bridge(name, def)
 
 	local node_def = minetest.registered_nodes[name]
 	if not node_def then
-		minetest.log("warning", "[Viaduct] Skipping unknown node: ".. name)
+		if minetest.get_current_modname() ~= "viaduct" then minetest.log("warning", "["..minetest.get_current_modname().."] node "..name.." not found in function viaduct.register_rope_bridge") end
 		return
 	end
 
