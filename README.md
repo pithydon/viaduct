@@ -35,6 +35,4 @@ Any part of the item definition can also be blank.
 viaduct.register_wood_bridge("default:wood", {})
 ```
 
-Older api is supported but not documented.
-
 [pithydon]: <https://github.com/pithydon>

@@ -986,33 +986,3 @@ end
 if(minetest.get_modpath("moreblocks")) then
 viaduct.register_rope_bridge("moreblocks:rope", {tiles={"viaduct_vine.png"}})
 end
-
--- OLD API
-
-function viaduct.register_node(name)
-	viaduct.register_wood_bridge(name, {})
-end
-
-function viaduct.register_custom(item, name, tile, sound, group, recipe)
-	local legdef = {
-		description = name.." Bridge",
-		tiles = tile,
-		sounds = sound,
-		groups = group,
-	}
-	viaduct.register_wood_bridge(recipe, legdef)
-end
-
-function viaduct.register_node_rope(name)
-	viaduct.register_rope_bridge(name, {})
-end
-
-function viaduct.register_custom_rope(item, name, tile, sound, group, recipe)
-	local legdef = {
-		description = name.." Bridge",
-		tiles = tile,
-		sounds = sound,
-		groups = group,
-	}
-	viaduct.register_rope_bridge(recipe, legdef)
-end
