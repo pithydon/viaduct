@@ -2,6 +2,8 @@
 
 Connected node bridges for Minetest.
 
+[forum link]
+
 code license: unlicense
 
 texture license: WTFPL
@@ -36,3 +38,4 @@ viaduct.register_wood_bridge("default:wood", {})
 ```
 
 [pithydon]: <https://github.com/pithydon>
+[forum link]: <https://forum.minetest.net/viewtopic.php?f=11&t=14559>
