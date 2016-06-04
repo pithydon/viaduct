@@ -10,18 +10,12 @@ function viaduct.register_wood_bridge(name, def)
 
 	local item = name:split(':')[2]
 
-	local desc
 	if not def.description then
-		desc = node_def.description.." Bridge"
-	else
-		desc = def.description
+		def.description = node_def.description.." Bridge"
 	end
 
-	local tile
 	if not def.tiles then
-		tile = node_def.tiles
-	else
-		tile = def.tiles
+		def.tiles = node_def.tiles
 	end
 
 	local group
@@ -32,12 +26,10 @@ function viaduct.register_wood_bridge(name, def)
 	else
 		group = def.groups
 	end
+	group.bridge = 1
 
-	local sound
 	if not def.sounds then
-		sound = node_def.sounds
-	else
-		sound = def.sounds
+		def.sounds = node_def.sounds
 	end
 
 	local nocgroup = table.copy(group)
@@ -50,637 +42,7 @@ function viaduct.register_wood_bridge(name, def)
 		stick = def.stick
 	end
 
-minetest.register_node(":viaduct:"..item.."_bridge", {
-	description = desc,
-	tiles = tile,
-	paramtype = "light",
-	drawtype = "nodebox",
-	node_box = {
-		type = "fixed",
-		fixed = {
-			{-0.5, -0.5, -0.5, 0.5, -0.4375, 0.5},
-			{-0.5, -0.4375, 0.375, -0.375, 0.5, 0.5},
-			{0.375, -0.4375, 0.375, 0.5, 0.5, 0.5},
-			{-0.5, -0.4375, -0.5, -0.375, 0.5, -0.375},
-			{0.375, -0.4375, -0.5, 0.5, 0.5, -0.375},
-			{-0.375, 0.3125, 0.375, 0.375, 0.4375, 0.4375},
-			{-0.375, -0.1875, 0.375, 0.375, -0.0625, 0.4375},
-			{0.375, 0.3125, -0.375, 0.4375, 0.4375, 0.375},
-			{0.375, -0.1875, -0.375, 0.4375, -0.0625, 0.375},
-			{-0.375, 0.3125, -0.4375, 0.375, 0.4375, -0.375},
-			{-0.375, -0.1875, -0.4375, 0.375, -0.0625, -0.375},
-			{-0.4375, 0.3125, -0.375, -0.375, 0.4375, 0.375},
-			{-0.4375, -0.1875, -0.375, -0.375, -0.0625, 0.375},
-		},
-	},
-	selection_box = {
-		type = "fixed",
-		fixed = {-0.5, -0.5, -0.5, 0.5, 0.5, 0.5},
-	},
-	drop = "viaduct:"..item.."_bridge",
-	sounds = sound,
-	groups = group,
-})
-
-minetest.register_node(":viaduct:"..item.."_bridge_w", {
-	description = desc,
-	tiles = tile,
-	paramtype = "light",
-	drawtype = "nodebox",
-	node_box = {
-		type = "fixed",
-		fixed = {
-			{-0.5, -0.5, -0.5, 0.5, -0.4375, 0.5},
-			{-0.5, -0.4375, 0.375, -0.375, 0.5, 0.5},
-			{0.375, -0.4375, 0.375, 0.5, 0.5, 0.5},
-			{-0.5, -0.4375, -0.5, -0.375, 0.5, -0.375},
-			{0.375, -0.4375, -0.5, 0.5, 0.5, -0.375},
-			{-0.375, 0.3125, 0.375, 0.375, 0.4375, 0.4375},
-			{-0.375, -0.1875, 0.375, 0.375, -0.0625, 0.4375},
-			{0.375, 0.3125, -0.375, 0.4375, 0.4375, 0.375},
-			{0.375, -0.1875, -0.375, 0.4375, -0.0625, 0.375},
-			{-0.375, 0.3125, -0.4375, 0.375, 0.4375, -0.375},
-			{-0.375, -0.1875, -0.4375, 0.375, -0.0625, -0.375},
-		},
-	},
-	selection_box = {
-		type = "fixed",
-		fixed = {-0.5, -0.5, -0.5, 0.5, 0.5, 0.5},
-	},
-	drop = "viaduct:"..item.."_bridge",
-	sounds = sound,
-	groups = nocgroup,
-})
-
-minetest.register_node(":viaduct:"..item.."_bridge_s", {
-	description = desc,
-	tiles = tile,
-	paramtype = "light",
-	drawtype = "nodebox",
-	node_box = {
-		type = "fixed",
-		fixed = {
-			{-0.5, -0.5, -0.5, 0.5, -0.4375, 0.5},
-			{-0.5, -0.4375, 0.375, -0.375, 0.5, 0.5},
-			{0.375, -0.4375, 0.375, 0.5, 0.5, 0.5},
-			{-0.5, -0.4375, -0.5, -0.375, 0.5, -0.375},
-			{0.375, -0.4375, -0.5, 0.5, 0.5, -0.375},
-			{-0.375, 0.3125, 0.375, 0.375, 0.4375, 0.4375},
-			{-0.375, -0.1875, 0.375, 0.375, -0.0625, 0.4375},
-			{0.375, 0.3125, -0.375, 0.4375, 0.4375, 0.375},
-			{0.375, -0.1875, -0.375, 0.4375, -0.0625, 0.375},
-			{-0.4375, 0.3125, -0.375, -0.375, 0.4375, 0.375},
-			{-0.4375, -0.1875, -0.375, -0.375, -0.0625, 0.375},
-		},
-	},
-	selection_box = {
-		type = "fixed",
-		fixed = {-0.5, -0.5, -0.5, 0.5, 0.5, 0.5},
-	},
-	drop = "viaduct:"..item.."_bridge",
-	sounds = sound,
-	groups = nocgroup,
-})
-
-minetest.register_node(":viaduct:"..item.."_bridge_sw", {
-	description = desc,
-	tiles = tile,
-	paramtype = "light",
-	drawtype = "nodebox",
-	node_box = {
-		type = "fixed",
-		fixed = {
-			{-0.5, -0.5, -0.5, 0.5, -0.4375, 0.5},
-			{-0.5, -0.4375, 0.375, -0.375, 0.5, 0.5},
-			{0.375, -0.4375, 0.375, 0.5, 0.5, 0.5},
-			{-0.5, -0.4375, -0.5, -0.375, 0.5, -0.375},
-			{0.375, -0.4375, -0.5, 0.5, 0.5, -0.375},
-			{-0.375, 0.3125, 0.375, 0.375, 0.4375, 0.4375},
-			{-0.375, -0.1875, 0.375, 0.375, -0.0625, 0.4375},
-			{0.375, 0.3125, -0.375, 0.4375, 0.4375, 0.375},
-			{0.375, -0.1875, -0.375, 0.4375, -0.0625, 0.375},
-		},
-	},
-	selection_box = {
-		type = "fixed",
-		fixed = {-0.5, -0.5, -0.5, 0.5, 0.5, 0.5},
-	},
-	drop = "viaduct:"..item.."_bridge",
-	sounds = sound,
-	groups = nocgroup,
-})
-
-minetest.register_node(":viaduct:"..item.."_bridge_e", {
-	description = desc,
-	tiles = tile,
-	paramtype = "light",
-	drawtype = "nodebox",
-	node_box = {
-		type = "fixed",
-		fixed = {
-			{-0.5, -0.5, -0.5, 0.5, -0.4375, 0.5},
-			{-0.5, -0.4375, 0.375, -0.375, 0.5, 0.5},
-			{0.375, -0.4375, 0.375, 0.5, 0.5, 0.5},
-			{-0.5, -0.4375, -0.5, -0.375, 0.5, -0.375},
-			{0.375, -0.4375, -0.5, 0.5, 0.5, -0.375},
-			{-0.375, 0.3125, 0.375, 0.375, 0.4375, 0.4375},
-			{-0.375, -0.1875, 0.375, 0.375, -0.0625, 0.4375},
-			{-0.375, 0.3125, -0.4375, 0.375, 0.4375, -0.375},
-			{-0.375, -0.1875, -0.4375, 0.375, -0.0625, -0.375},
-			{-0.4375, 0.3125, -0.375, -0.375, 0.4375, 0.375},
-			{-0.4375, -0.1875, -0.375, -0.375, -0.0625, 0.375},
-		},
-	},
-	selection_box = {
-		type = "fixed",
-		fixed = {-0.5, -0.5, -0.5, 0.5, 0.5, 0.5},
-	},
-	drop = "viaduct:"..item.."_bridge",
-	sounds = sound,
-	groups = nocgroup,
-})
-
-minetest.register_node(":viaduct:"..item.."_bridge_ew", {
-	description = desc,
-	tiles = tile,
-	paramtype = "light",
-	drawtype = "nodebox",
-	node_box = {
-		type = "fixed",
-		fixed = {
-			{-0.5, -0.5, -0.5, 0.5, -0.4375, 0.5},
-			{-0.5, -0.4375, 0.375, -0.375, 0.5, 0.5},
-			{0.375, -0.4375, 0.375, 0.5, 0.5, 0.5},
-			{-0.5, -0.4375, -0.5, -0.375, 0.5, -0.375},
-			{0.375, -0.4375, -0.5, 0.5, 0.5, -0.375},
-			{-0.375, 0.3125, 0.375, 0.375, 0.4375, 0.4375},
-			{-0.375, -0.1875, 0.375, 0.375, -0.0625, 0.4375},
-			{-0.375, 0.3125, -0.4375, 0.375, 0.4375, -0.375},
-			{-0.375, -0.1875, -0.4375, 0.375, -0.0625, -0.375},
-		},
-	},
-	selection_box = {
-		type = "fixed",
-		fixed = {-0.5, -0.5, -0.5, 0.5, 0.5, 0.5},
-	},
-	drop = "viaduct:"..item.."_bridge",
-	sounds = sound,
-	groups = nocgroup,
-})
-
-minetest.register_node(":viaduct:"..item.."_bridge_es", {
-	description = desc,
-	tiles = tile,
-	paramtype = "light",
-	drawtype = "nodebox",
-	node_box = {
-		type = "fixed",
-		fixed = {
-			{-0.5, -0.5, -0.5, 0.5, -0.4375, 0.5},
-			{-0.5, -0.4375, 0.375, -0.375, 0.5, 0.5},
-			{0.375, -0.4375, 0.375, 0.5, 0.5, 0.5},
-			{-0.5, -0.4375, -0.5, -0.375, 0.5, -0.375},
-			{0.375, -0.4375, -0.5, 0.5, 0.5, -0.375},
-			{-0.375, 0.3125, 0.375, 0.375, 0.4375, 0.4375},
-			{-0.375, -0.1875, 0.375, 0.375, -0.0625, 0.4375},
-			{-0.4375, 0.3125, -0.375, -0.375, 0.4375, 0.375},
-			{-0.4375, -0.1875, -0.375, -0.375, -0.0625, 0.375},
-		},
-	},
-	selection_box = {
-		type = "fixed",
-		fixed = {-0.5, -0.5, -0.5, 0.5, 0.5, 0.5},
-	},
-	drop = "viaduct:"..item.."_bridge",
-	sounds = sound,
-	groups = nocgroup,
-})
-
-minetest.register_node(":viaduct:"..item.."_bridge_esw", {
-	description = desc,
-	tiles = tile,
-	paramtype = "light",
-	drawtype = "nodebox",
-	node_box = {
-		type = "fixed",
-		fixed = {
-			{-0.5, -0.5, -0.5, 0.5, -0.4375, 0.5},
-			{-0.5, -0.4375, 0.375, -0.375, 0.5, 0.5},
-			{0.375, -0.4375, 0.375, 0.5, 0.5, 0.5},
-			{-0.5, -0.4375, -0.5, -0.375, 0.5, -0.375},
-			{0.375, -0.4375, -0.5, 0.5, 0.5, -0.375},
-			{-0.375, 0.3125, 0.375, 0.375, 0.4375, 0.4375},
-			{-0.375, -0.1875, 0.375, 0.375, -0.0625, 0.4375},
-		},
-	},
-	selection_box = {
-		type = "fixed",
-		fixed = {-0.5, -0.5, -0.5, 0.5, 0.5, 0.5},
-	},
-	drop = "viaduct:"..item.."_bridge",
-	sounds = sound,
-	groups = nocgroup,
-})
-
-minetest.register_node(":viaduct:"..item.."_bridge_n", {
-	description = desc,
-	tiles = tile,
-	paramtype = "light",
-	drawtype = "nodebox",
-	node_box = {
-		type = "fixed",
-		fixed = {
-			{-0.5, -0.5, -0.5, 0.5, -0.4375, 0.5},
-			{-0.5, -0.4375, 0.375, -0.375, 0.5, 0.5},
-			{0.375, -0.4375, 0.375, 0.5, 0.5, 0.5},
-			{-0.5, -0.4375, -0.5, -0.375, 0.5, -0.375},
-			{0.375, -0.4375, -0.5, 0.5, 0.5, -0.375},
-			{0.375, 0.3125, -0.375, 0.4375, 0.4375, 0.375},
-			{0.375, -0.1875, -0.375, 0.4375, -0.0625, 0.375},
-			{-0.375, 0.3125, -0.4375, 0.375, 0.4375, -0.375},
-			{-0.375, -0.1875, -0.4375, 0.375, -0.0625, -0.375},
-			{-0.4375, 0.3125, -0.375, -0.375, 0.4375, 0.375},
-			{-0.4375, -0.1875, -0.375, -0.375, -0.0625, 0.375},
-		},
-	},
-	selection_box = {
-		type = "fixed",
-		fixed = {-0.5, -0.5, -0.5, 0.5, 0.5, 0.5},
-	},
-	drop = "viaduct:"..item.."_bridge",
-	sounds = sound,
-	groups = nocgroup,
-})
-
-minetest.register_node(":viaduct:"..item.."_bridge_nw", {
-	description = desc,
-	tiles = tile,
-	paramtype = "light",
-	drawtype = "nodebox",
-	node_box = {
-		type = "fixed",
-		fixed = {
-			{-0.5, -0.5, -0.5, 0.5, -0.4375, 0.5},
-			{-0.5, -0.4375, 0.375, -0.375, 0.5, 0.5},
-			{0.375, -0.4375, 0.375, 0.5, 0.5, 0.5},
-			{-0.5, -0.4375, -0.5, -0.375, 0.5, -0.375},
-			{0.375, -0.4375, -0.5, 0.5, 0.5, -0.375},
-			{0.375, 0.3125, -0.375, 0.4375, 0.4375, 0.375},
-			{0.375, -0.1875, -0.375, 0.4375, -0.0625, 0.375},
-			{-0.375, 0.3125, -0.4375, 0.375, 0.4375, -0.375},
-			{-0.375, -0.1875, -0.4375, 0.375, -0.0625, -0.375},
-		},
-	},
-	selection_box = {
-		type = "fixed",
-		fixed = {-0.5, -0.5, -0.5, 0.5, 0.5, 0.5},
-	},
-	drop = "viaduct:"..item.."_bridge",
-	sounds = sound,
-	groups = nocgroup,
-})
-
-minetest.register_node(":viaduct:"..item.."_bridge_ns", {
-	description = desc,
-	tiles = tile,
-	paramtype = "light",
-	drawtype = "nodebox",
-	node_box = {
-		type = "fixed",
-		fixed = {
-			{-0.5, -0.5, -0.5, 0.5, -0.4375, 0.5},
-			{-0.5, -0.4375, 0.375, -0.375, 0.5, 0.5},
-			{0.375, -0.4375, 0.375, 0.5, 0.5, 0.5},
-			{-0.5, -0.4375, -0.5, -0.375, 0.5, -0.375},
-			{0.375, -0.4375, -0.5, 0.5, 0.5, -0.375},
-			{0.375, 0.3125, -0.375, 0.4375, 0.4375, 0.375},
-			{0.375, -0.1875, -0.375, 0.4375, -0.0625, 0.375},
-			{-0.4375, 0.3125, -0.375, -0.375, 0.4375, 0.375},
-			{-0.4375, -0.1875, -0.375, -0.375, -0.0625, 0.375},
-		},
-	},
-	selection_box = {
-		type = "fixed",
-		fixed = {-0.5, -0.5, -0.5, 0.5, 0.5, 0.5},
-	},
-	drop = "viaduct:"..item.."_bridge",
-	sounds = sound,
-	groups = nocgroup,
-})
-
-minetest.register_node(":viaduct:"..item.."_bridge_nsw", {
-	description = desc,
-	tiles = tile,
-	paramtype = "light",
-	drawtype = "nodebox",
-	node_box = {
-		type = "fixed",
-		fixed = {
-			{-0.5, -0.5, -0.5, 0.5, -0.4375, 0.5},
-			{-0.5, -0.4375, 0.375, -0.375, 0.5, 0.5},
-			{0.375, -0.4375, 0.375, 0.5, 0.5, 0.5},
-			{-0.5, -0.4375, -0.5, -0.375, 0.5, -0.375},
-			{0.375, -0.4375, -0.5, 0.5, 0.5, -0.375},
-			{0.375, 0.3125, -0.375, 0.4375, 0.4375, 0.375},
-			{0.375, -0.1875, -0.375, 0.4375, -0.0625, 0.375},
-		},
-	},
-	selection_box = {
-		type = "fixed",
-		fixed = {-0.5, -0.5, -0.5, 0.5, 0.5, 0.5},
-	},
-	drop = "viaduct:"..item.."_bridge",
-	sounds = sound,
-	groups = nocgroup,
-})
-
-minetest.register_node(":viaduct:"..item.."_bridge_ne", {
-	description = desc,
-	tiles = tile,
-	paramtype = "light",
-	drawtype = "nodebox",
-	node_box = {
-		type = "fixed",
-		fixed = {
-			{-0.5, -0.5, -0.5, 0.5, -0.4375, 0.5},
-			{-0.5, -0.4375, 0.375, -0.375, 0.5, 0.5},
-			{0.375, -0.4375, 0.375, 0.5, 0.5, 0.5},
-			{-0.5, -0.4375, -0.5, -0.375, 0.5, -0.375},
-			{0.375, -0.4375, -0.5, 0.5, 0.5, -0.375},
-			{-0.375, 0.3125, -0.4375, 0.375, 0.4375, -0.375},
-			{-0.375, -0.1875, -0.4375, 0.375, -0.0625, -0.375},
-			{-0.4375, 0.3125, -0.375, -0.375, 0.4375, 0.375},
-			{-0.4375, -0.1875, -0.375, -0.375, -0.0625, 0.375},
-		},
-	},
-	selection_box = {
-		type = "fixed",
-		fixed = {-0.5, -0.5, -0.5, 0.5, 0.5, 0.5},
-	},
-	drop = "viaduct:"..item.."_bridge",
-	sounds = sound,
-	groups = nocgroup,
-})
-
-minetest.register_node(":viaduct:"..item.."_bridge_new", {
-	description = desc,
-	tiles = tile,
-	paramtype = "light",
-	drawtype = "nodebox",
-	node_box = {
-		type = "fixed",
-		fixed = {
-			{-0.5, -0.5, -0.5, 0.5, -0.4375, 0.5},
-			{-0.5, -0.4375, 0.375, -0.375, 0.5, 0.5},
-			{0.375, -0.4375, 0.375, 0.5, 0.5, 0.5},
-			{-0.5, -0.4375, -0.5, -0.375, 0.5, -0.375},
-			{0.375, -0.4375, -0.5, 0.5, 0.5, -0.375},
-			{-0.375, 0.3125, -0.4375, 0.375, 0.4375, -0.375},
-			{-0.375, -0.1875, -0.4375, 0.375, -0.0625, -0.375},
-		},
-	},
-	selection_box = {
-		type = "fixed",
-		fixed = {-0.5, -0.5, -0.5, 0.5, 0.5, 0.5},
-	},
-	drop = "viaduct:"..item.."_bridge",
-	sounds = sound,
-	groups = nocgroup,
-})
-
-minetest.register_node(":viaduct:"..item.."_bridge_nes", {
-	description = desc,
-	tiles = tile,
-	paramtype = "light",
-	drawtype = "nodebox",
-	node_box = {
-		type = "fixed",
-		fixed = {
-			{-0.5, -0.5, -0.5, 0.5, -0.4375, 0.5},
-			{-0.5, -0.4375, 0.375, -0.375, 0.5, 0.5},
-			{0.375, -0.4375, 0.375, 0.5, 0.5, 0.5},
-			{-0.5, -0.4375, -0.5, -0.375, 0.5, -0.375},
-			{0.375, -0.4375, -0.5, 0.5, 0.5, -0.375},
-			{-0.4375, 0.3125, -0.375, -0.375, 0.4375, 0.375},
-			{-0.4375, -0.1875, -0.375, -0.375, -0.0625, 0.375},
-		},
-	},
-	selection_box = {
-		type = "fixed",
-		fixed = {-0.5, -0.5, -0.5, 0.5, 0.5, 0.5},
-	},
-	drop = "viaduct:"..item.."_bridge",
-	sounds = sound,
-	groups = nocgroup,
-})
-
-minetest.register_node(":viaduct:"..item.."_bridge_nesw", {
-	description = desc,
-	tiles = tile,
-	paramtype = "light",
-	drawtype = "nodebox",
-	node_box = {
-		type = "fixed",
-		fixed = {
-			{-0.5, -0.5, -0.5, 0.5, -0.4375, 0.5},
-			{-0.5, -0.4375, 0.375, -0.375, 0.5, 0.5},
-			{0.375, -0.4375, 0.375, 0.5, 0.5, 0.5},
-			{-0.5, -0.4375, -0.5, -0.375, 0.5, -0.375},
-			{0.375, -0.4375, -0.5, 0.5, 0.5, -0.375},
-		},
-	},
-	selection_box = {
-		type = "fixed",
-		fixed = {-0.5, -0.5, -0.5, 0.5, 0.5, 0.5},
-	},
-	drop = "viaduct:"..item.."_bridge",
-	sounds = sound,
-	groups = nocgroup,
-})
-
-minetest.register_node(":viaduct:"..item.."_bridge_un", {
-	description = desc,
-	tiles = tile,
-	paramtype = "light",
-	drawtype = "nodebox",
-	node_box = {
-		type = "fixed",
-		fixed = {
-			{-0.5, -0.5, -0.5, 0.5, -0.4375, 0},
-			{-0.5, 0, 0, 0.5, 0.0625, 0.5},
-			{-0.5, 0.0625, 0.375, -0.375, 1, 0.5},
-			{0.375, 0.0625, 0.375, 0.5, 1, 0.5},
-			{-0.5, 0.0625, 0, -0.375, 1, 0.125},
-			{0.375, 0.0625, 0, 0.5, 1, 0.125},
-			{-0.5, -0.4375, -0.125, -0.375, 0.5, 0},
-			{0.375, -0.4375, -0.125, 0.5, 0.5, 0},
-			{-0.5, -0.4375, -0.5, -0.375, 0.5, -0.375},
-			{0.375, -0.4375, -0.5, 0.5, 0.5, -0.375},
-			{-0.4375, 0.8125, 0.125, -0.375, 0.9375, 0.375},
-			{-0.4375, 0.3125, 0.125, -0.375, 0.4375, 0.375},
-			{0.375, 0.8125, 0.125, 0.4375, 0.9375, 0.375},
-			{0.375, 0.3125, 0.125, 0.4375, 0.4375, 0.375},
-			{-0.4375, 0.3125, -0.375, -0.375, 0.4375, -0.125},
-			{-0.4375, -0.1875, -0.375, -0.375, -0.0625, -0.125},
-			{0.375, 0.3125, -0.375, 0.4375, 0.4375, -0.125},
-			{0.375, -0.1875, -0.375, 0.4375, -0.0625, -0.125},
-		},
-	},
-	selection_box = {
-		type = "fixed",
-		fixed = {-0.5, -0.5, -0.5, 0.5, 0.5, 0.5},
-	},
-	drop = "viaduct:"..item.."_bridge",
-	sounds = sound,
-	groups = nocgroup,
-})
-
-minetest.register_node(":viaduct:"..item.."_bridge_ue", {
-	description = desc,
-	tiles = tile,
-	paramtype = "light",
-	drawtype = "nodebox",
-	node_box = {
-		type = "fixed",
-		fixed = {
-			{-0.5, -0.5, -0.5, 0, -0.4375, 0.5},
-			{0, 0, -0.5, 0.5, 0.0625, 0.5},
-			{-0.5, -0.4375, 0.375, -0.375, 0.5, 0.5},
-			{-0.125, -0.4375, 0.375, 0, 0.5, 0.5},
-			{-0.5, -0.4375, -0.5, -0.375, 0.5, -0.375},
-			{-0.125, -0.4375, -0.5, 0, 0.5, -0.375},
-			{0, 0.0625, 0.375, 0.125, 1, 0.5},
-			{0.375, 0.0625, 0.375, 0.5, 1, 0.5},
-			{0, 0.0625, -0.5, 0.125, 1, -0.375},
-			{0.375, 0.0625, -0.5, 0.5, 1, -0.375},
-			{-0.375, 0.3125, 0.375, -0.125, 0.4375, 0.4375},
-			{-0.375, -0.1875, 0.375, -0.125, -0.0625, 0.4375},
-			{-0.375, 0.3125, -0.4375, -0.125, 0.4375, -0.375},
-			{-0.375, -0.1875, -0.4375, -0.125, -0.0625, -0.375},
-			{0.125, 0.8125, 0.375, 0.375, 0.9375, 0.4375},
-			{0.125, 0.3125, 0.375, 0.375, 0.4375, 0.4375},
-			{0.125, 0.8125, -0.4375, 0.375, 0.9375, -0.375},
-			{0.125, 0.3125, -0.4375, 0.375, 0.4375, -0.375},
-		},
-	},
-	selection_box = {
-		type = "fixed",
-		fixed = {-0.5, -0.5, -0.5, 0.5, 0.5, 0.5},
-	},
-	drop = "viaduct:"..item.."_bridge",
-	sounds = sound,
-	groups = nocgroup,
-})
-
-minetest.register_node(":viaduct:"..item.."_bridge_us", {
-	description = desc,
-	tiles = tile,
-	paramtype = "light",
-	drawtype = "nodebox",
-	node_box = {
-		type = "fixed",
-		fixed = {
-			{-0.5, 0, -0.5, 0.5, 0.0625, 0},
-			{-0.5, -0.5, 0, 0.5, -0.4375, 0.5},
-			{-0.5, -0.4375, 0.375, -0.375, 0.5, 0.5},
-			{0.375, -0.4375, 0.375, 0.5, 0.5, 0.5},
-			{-0.5, -0.4375, 0, -0.375, 0.5, 0.125},
-			{0.375, -0.4375, 0, 0.5, 0.5, 0.125},
-			{-0.5, 0.0625, -0.125, -0.375, 1, 0},
-			{0.375, 0.0625, -0.125, 0.5, 1, 0},
-			{-0.5, 0.0625, -0.5, -0.375, 1, -0.375},
-			{0.375, 0.0625, -0.5, 0.5, 1, -0.375},
-			{-0.4375, 0.3125, 0.125, -0.375, 0.4375, 0.375},
-			{-0.4375, -0.1875, 0.125, -0.375, -0.0625, 0.375},
-			{0.375, 0.3125, 0.125, 0.4375, 0.4375, 0.375},
-			{0.375, -0.1875, 0.125, 0.4375, -0.0625, 0.375},
-			{-0.4375, 0.8125, -0.375, -0.375, 0.9375, -0.125},
-			{-0.4375, 0.3125, -0.375, -0.375, 0.4375, -0.125},
-			{0.375, 0.8125, -0.375, 0.4375, 0.9375, -0.125},
-			{0.375, 0.3125, -0.375, 0.4375, 0.4375, -0.125},
-		},
-	},
-	selection_box = {
-		type = "fixed",
-		fixed = {-0.5, -0.5, -0.5, 0.5, 0.5, 0.5},
-	},
-	drop = "viaduct:"..item.."_bridge",
-	sounds = sound,
-	groups = nocgroup,
-})
-
-minetest.register_node(":viaduct:"..item.."_bridge_uw", {
-	description = desc,
-	tiles = tile,
-	paramtype = "light",
-	drawtype = "nodebox",
-	node_box = {
-		type = "fixed",
-		fixed = {
-			{-0.5, 0, -0.5, 0, 0.0625, 0.5},
-			{0, -0.5, -0.5, 0.5, -0.4375, 0.5},
-			{-0.5, 0.0625, 0.375, -0.375, 1, 0.5},
-			{-0.125, 0.0625, 0.375, 0, 1, 0.5},
-			{-0.5, 0.0625, -0.5, -0.375, 1, -0.375},
-			{-0.125, 0.0625, -0.5, 0, 1, -0.375},
-			{0, -0.4375, 0.375, 0.125, 0.5, 0.5},
-			{0.375, -0.4375, 0.375, 0.5, 0.5, 0.5},
-			{0, -0.4375, -0.5, 0.125, 0.5, -0.375},
-			{0.375, -0.4375, -0.5, 0.5, 0.5, -0.375},
-			{-0.375, 0.8125, 0.375, -0.125, 0.9375, 0.4375},
-			{-0.375, 0.3125, 0.375, -0.125, 0.4375, 0.4375},
-			{-0.375, 0.8125, -0.4375, -0.125, 0.9375, -0.375},
-			{-0.375, 0.3125, -0.4375, -0.125, 0.4375, -0.375},
-			{0.125, 0.3125, 0.375, 0.375, 0.4375, 0.4375},
-			{0.125, -0.1875, 0.375, 0.375, -0.0625, 0.4375},
-			{0.125, 0.3125, -0.4375, 0.375, 0.4375, -0.375},
-			{0.125, -0.1875, -0.4375, 0.375, -0.0625, -0.375},
-		},
-	},
-	selection_box = {
-		type = "fixed",
-		fixed = {-0.5, -0.5, -0.5, 0.5, 0.5, 0.5},
-	},
-	drop = "viaduct:"..item.."_bridge",
-	sounds = sound,
-	groups = nocgroup,
-})
-
-minetest.register_craft({
-	output = "viaduct:"..item.."_bridge 3",
-	recipe = {
-		{stick, "", stick},
-		{stick, "", stick},
-		{name, name, name},
-	}
-})
-
-minetest.register_abm({
-	nodenames = {
-		"viaduct:"..item.."_bridge",
-		"viaduct:"..item.."_bridge_w",
-		"viaduct:"..item.."_bridge_s",
-		"viaduct:"..item.."_bridge_sw",
-		"viaduct:"..item.."_bridge_e",
-		"viaduct:"..item.."_bridge_ew",
-		"viaduct:"..item.."_bridge_es",
-		"viaduct:"..item.."_bridge_esw",
-		"viaduct:"..item.."_bridge_n",
-		"viaduct:"..item.."_bridge_nw",
-		"viaduct:"..item.."_bridge_ns",
-		"viaduct:"..item.."_bridge_nsw",
-		"viaduct:"..item.."_bridge_ne",
-		"viaduct:"..item.."_bridge_new",
-		"viaduct:"..item.."_bridge_nes",
-		"viaduct:"..item.."_bridge_nesw",
-		"viaduct:"..item.."_bridge_un",
-		"viaduct:"..item.."_bridge_ue",
-		"viaduct:"..item.."_bridge_us",
-		"viaduct:"..item.."_bridge_uw"
-	},
-	interval = 1,
-	chance = 1,
-	action = function(pos, node)
+	local update = function(pos)
 		local north = minetest.get_node({x = pos.x, y = pos.y, z = pos.z + 1})
 		local east = minetest.get_node({x = pos.x + 1, y = pos.y, z = pos.z})
 		local south = minetest.get_node({x = pos.x, y = pos.y, z = pos.z - 1})
@@ -694,14 +56,6 @@ minetest.register_abm({
 		local eastdown = minetest.get_node({x = pos.x + 1, y = pos.y - 1, z = pos.z})
 		local southdown = minetest.get_node({x = pos.x, y = pos.y - 1, z = pos.z - 1})
 		local westdown = minetest.get_node({x = pos.x - 1, y = pos.y - 1, z = pos.z})
-		local modnorth = north.name:split(':')[1]
-		local modeast = east.name:split(':')[1]
-		local modsouth = south.name:split(':')[1]
-		local modwest = west.name:split(':')[1]
-		local modnorthup = northup.name:split(':')[1]
-		local modeastup = eastup.name:split(':')[1]
-		local modsouthup = southup.name:split(':')[1]
-		local modwestup = westup.name:split(':')[1]
 		local bridgeus
 		if northdown.name:split('_bridge_')[2] == "us" then bridgeus = true else bridgeus = false end
 		local bridgeuw
@@ -711,21 +65,21 @@ minetest.register_abm({
 		local bridgeue
 		if westdown.name:split('_bridge_')[2] == "ue" then bridgeue = true else bridgeue = false end
 		local n
-		if modnorth == "viaduct" or bridgeus then n = true else n = false end
+		if minetest.get_item_group(north.name, "bridge") == 1 or bridgeus then n = true else n = false end
 		local e
-		if modeast == "viaduct" or bridgeuw then e = true else e = false end
+		if minetest.get_item_group(east.name, "bridge") == 1 or bridgeuw then e = true else e = false end
 		local s
-		if modsouth == "viaduct" or bridgeun then s = true else s = false end
+		if minetest.get_item_group(south.name, "bridge") == 1 or bridgeun then s = true else s = false end
 		local w
-		if modwest == "viaduct" or bridgeue then w = true else w = false end
+		if minetest.get_item_group(west.name, "bridge") == 1 or bridgeue then w = true else w = false end
 		local nu
-		if modnorthup == "viaduct" and above.name == "air" then nu = true else nu = false end
+		if minetest.get_item_group(northup.name, "bridge") == 1 and above.name == "air" then nu = true else nu = false end
 		local eu
-		if modeastup == "viaduct" and above.name == "air" then eu = true else eu = false end
+		if minetest.get_item_group(eastup.name, "bridge") == 1 and above.name == "air" then eu = true else eu = false end
 		local su
-		if modsouthup == "viaduct" and above.name == "air" then su = true else su = false end
+		if minetest.get_item_group(southup.name, "bridge") == 1 and above.name == "air" then su = true else su = false end
 		local wu
-		if modwestup == "viaduct" and above.name == "air" then wu = true else wu = false end
+		if minetest.get_item_group(westup.name, "bridge") == 1 and above.name == "air" then wu = true else wu = false end
 		local nd
 		if northdown.name == "air" then nd = true else nd = false end
 		local ed
@@ -801,7 +155,842 @@ minetest.register_abm({
 				minetest.set_node(pos, {name = "viaduct:"..item.."_bridge"})
 			end
 		end
+	end
+
+minetest.register_node(":viaduct:"..item.."_bridge", {
+	description = def.description,
+	tiles = def.tiles,
+	paramtype = "light",
+	drawtype = "nodebox",
+	node_box = {
+		type = "fixed",
+		fixed = {
+			{-0.5, -0.5, -0.5, 0.5, -0.4375, 0.5},
+			{-0.5, -0.4375, 0.375, -0.375, 0.5, 0.5},
+			{0.375, -0.4375, 0.375, 0.5, 0.5, 0.5},
+			{-0.5, -0.4375, -0.5, -0.375, 0.5, -0.375},
+			{0.375, -0.4375, -0.5, 0.5, 0.5, -0.375},
+			{-0.375, 0.3125, 0.375, 0.375, 0.4375, 0.4375},
+			{-0.375, -0.1875, 0.375, 0.375, -0.0625, 0.4375},
+			{0.375, 0.3125, -0.375, 0.4375, 0.4375, 0.375},
+			{0.375, -0.1875, -0.375, 0.4375, -0.0625, 0.375},
+			{-0.375, 0.3125, -0.4375, 0.375, 0.4375, -0.375},
+			{-0.375, -0.1875, -0.4375, 0.375, -0.0625, -0.375},
+			{-0.4375, 0.3125, -0.375, -0.375, 0.4375, 0.375},
+			{-0.4375, -0.1875, -0.375, -0.375, -0.0625, 0.375},
+		},
+	},
+	selection_box = {
+		type = "fixed",
+		fixed = {-0.5, -0.5, -0.5, 0.5, 0.5, 0.5},
+	},
+	drop = "viaduct:"..item.."_bridge",
+	sounds = def.sounds,
+	groups = group,
+	after_place_node = function(pos, placer, itemstack, pointed_thing)
+		local node = minetest.get_node(pos)
+		local node_def = minetest.registered_nodes[node.name]
+		node_def.update_bridge(pos)
+		local nodes = minetest.find_nodes_in_area({x = pos.x - 1, y = pos.y - 1, z = pos.z - 1}, {x = pos.x + 1, y = pos.y + 1, z = pos.z + 1}, {"group:bridge"})
+		for i,v in ipairs(nodes) do
+			local node = minetest.get_node(v)
+			local node_def = minetest.registered_nodes[node.name]
+			node_def.update_bridge(v)
+		end
 	end,
+	after_dig_node = function(pos, oldnode, oldmetadata, digger)
+		local nodes = minetest.find_nodes_in_area({x = pos.x - 1, y = pos.y - 1, z = pos.z - 1}, {x = pos.x + 1, y = pos.y + 1, z = pos.z + 1}, {"group:bridge"})
+		for i,v in ipairs(nodes) do
+			local node = minetest.get_node(v)
+			local node_def = minetest.registered_nodes[node.name]
+			node_def.update_bridge(v)
+		end
+	end,
+	update_bridge = function(pos)
+		update(pos)
+	end,
+})
+
+minetest.register_node(":viaduct:"..item.."_bridge_w", {
+	description = def.description,
+	tiles = def.tiles,
+	paramtype = "light",
+	drawtype = "nodebox",
+	node_box = {
+		type = "fixed",
+		fixed = {
+			{-0.5, -0.5, -0.5, 0.5, -0.4375, 0.5},
+			{-0.5, -0.4375, 0.375, -0.375, 0.5, 0.5},
+			{0.375, -0.4375, 0.375, 0.5, 0.5, 0.5},
+			{-0.5, -0.4375, -0.5, -0.375, 0.5, -0.375},
+			{0.375, -0.4375, -0.5, 0.5, 0.5, -0.375},
+			{-0.375, 0.3125, 0.375, 0.375, 0.4375, 0.4375},
+			{-0.375, -0.1875, 0.375, 0.375, -0.0625, 0.4375},
+			{0.375, 0.3125, -0.375, 0.4375, 0.4375, 0.375},
+			{0.375, -0.1875, -0.375, 0.4375, -0.0625, 0.375},
+			{-0.375, 0.3125, -0.4375, 0.375, 0.4375, -0.375},
+			{-0.375, -0.1875, -0.4375, 0.375, -0.0625, -0.375},
+		},
+	},
+	selection_box = {
+		type = "fixed",
+		fixed = {-0.5, -0.5, -0.5, 0.5, 0.5, 0.5},
+	},
+	drop = "viaduct:"..item.."_bridge",
+	sounds = def.sounds,
+	groups = nocgroup,
+	after_dig_node = function(pos, oldnode, oldmetadata, digger)
+		local nodes = minetest.find_nodes_in_area({x = pos.x - 1, y = pos.y - 1, z = pos.z - 1}, {x = pos.x + 1, y = pos.y + 1, z = pos.z + 1}, {"group:bridge"})
+		for i,v in ipairs(nodes) do
+			local node = minetest.get_node(v)
+			local node_def = minetest.registered_nodes[node.name]
+			node_def.update_bridge(v)
+		end
+	end,
+	update_bridge = function(pos)
+		update(pos)
+	end,
+})
+
+minetest.register_node(":viaduct:"..item.."_bridge_s", {
+	description = def.description,
+	tiles = def.tiles,
+	paramtype = "light",
+	drawtype = "nodebox",
+	node_box = {
+		type = "fixed",
+		fixed = {
+			{-0.5, -0.5, -0.5, 0.5, -0.4375, 0.5},
+			{-0.5, -0.4375, 0.375, -0.375, 0.5, 0.5},
+			{0.375, -0.4375, 0.375, 0.5, 0.5, 0.5},
+			{-0.5, -0.4375, -0.5, -0.375, 0.5, -0.375},
+			{0.375, -0.4375, -0.5, 0.5, 0.5, -0.375},
+			{-0.375, 0.3125, 0.375, 0.375, 0.4375, 0.4375},
+			{-0.375, -0.1875, 0.375, 0.375, -0.0625, 0.4375},
+			{0.375, 0.3125, -0.375, 0.4375, 0.4375, 0.375},
+			{0.375, -0.1875, -0.375, 0.4375, -0.0625, 0.375},
+			{-0.4375, 0.3125, -0.375, -0.375, 0.4375, 0.375},
+			{-0.4375, -0.1875, -0.375, -0.375, -0.0625, 0.375},
+		},
+	},
+	selection_box = {
+		type = "fixed",
+		fixed = {-0.5, -0.5, -0.5, 0.5, 0.5, 0.5},
+	},
+	drop = "viaduct:"..item.."_bridge",
+	sounds = def.sounds,
+	groups = nocgroup,
+	after_dig_node = function(pos, oldnode, oldmetadata, digger)
+		local nodes = minetest.find_nodes_in_area({x = pos.x - 1, y = pos.y - 1, z = pos.z - 1}, {x = pos.x + 1, y = pos.y + 1, z = pos.z + 1}, {"group:bridge"})
+		for i,v in ipairs(nodes) do
+			local node = minetest.get_node(v)
+			local node_def = minetest.registered_nodes[node.name]
+			node_def.update_bridge(v)
+		end
+	end,
+	update_bridge = function(pos)
+		update(pos)
+	end,
+})
+
+minetest.register_node(":viaduct:"..item.."_bridge_sw", {
+	description = def.description,
+	tiles = def.tiles,
+	paramtype = "light",
+	drawtype = "nodebox",
+	node_box = {
+		type = "fixed",
+		fixed = {
+			{-0.5, -0.5, -0.5, 0.5, -0.4375, 0.5},
+			{-0.5, -0.4375, 0.375, -0.375, 0.5, 0.5},
+			{0.375, -0.4375, 0.375, 0.5, 0.5, 0.5},
+			{-0.5, -0.4375, -0.5, -0.375, 0.5, -0.375},
+			{0.375, -0.4375, -0.5, 0.5, 0.5, -0.375},
+			{-0.375, 0.3125, 0.375, 0.375, 0.4375, 0.4375},
+			{-0.375, -0.1875, 0.375, 0.375, -0.0625, 0.4375},
+			{0.375, 0.3125, -0.375, 0.4375, 0.4375, 0.375},
+			{0.375, -0.1875, -0.375, 0.4375, -0.0625, 0.375},
+		},
+	},
+	selection_box = {
+		type = "fixed",
+		fixed = {-0.5, -0.5, -0.5, 0.5, 0.5, 0.5},
+	},
+	drop = "viaduct:"..item.."_bridge",
+	sounds = def.sounds,
+	groups = nocgroup,
+	after_dig_node = function(pos, oldnode, oldmetadata, digger)
+		local nodes = minetest.find_nodes_in_area({x = pos.x - 1, y = pos.y - 1, z = pos.z - 1}, {x = pos.x + 1, y = pos.y + 1, z = pos.z + 1}, {"group:bridge"})
+		for i,v in ipairs(nodes) do
+			local node = minetest.get_node(v)
+			local node_def = minetest.registered_nodes[node.name]
+			node_def.update_bridge(v)
+		end
+	end,
+	update_bridge = function(pos)
+		update(pos)
+	end,
+})
+
+minetest.register_node(":viaduct:"..item.."_bridge_e", {
+	description = def.description,
+	tiles = def.tiles,
+	paramtype = "light",
+	drawtype = "nodebox",
+	node_box = {
+		type = "fixed",
+		fixed = {
+			{-0.5, -0.5, -0.5, 0.5, -0.4375, 0.5},
+			{-0.5, -0.4375, 0.375, -0.375, 0.5, 0.5},
+			{0.375, -0.4375, 0.375, 0.5, 0.5, 0.5},
+			{-0.5, -0.4375, -0.5, -0.375, 0.5, -0.375},
+			{0.375, -0.4375, -0.5, 0.5, 0.5, -0.375},
+			{-0.375, 0.3125, 0.375, 0.375, 0.4375, 0.4375},
+			{-0.375, -0.1875, 0.375, 0.375, -0.0625, 0.4375},
+			{-0.375, 0.3125, -0.4375, 0.375, 0.4375, -0.375},
+			{-0.375, -0.1875, -0.4375, 0.375, -0.0625, -0.375},
+			{-0.4375, 0.3125, -0.375, -0.375, 0.4375, 0.375},
+			{-0.4375, -0.1875, -0.375, -0.375, -0.0625, 0.375},
+		},
+	},
+	selection_box = {
+		type = "fixed",
+		fixed = {-0.5, -0.5, -0.5, 0.5, 0.5, 0.5},
+	},
+	drop = "viaduct:"..item.."_bridge",
+	sounds = def.sounds,
+	groups = nocgroup,
+	after_dig_node = function(pos, oldnode, oldmetadata, digger)
+		local nodes = minetest.find_nodes_in_area({x = pos.x - 1, y = pos.y - 1, z = pos.z - 1}, {x = pos.x + 1, y = pos.y + 1, z = pos.z + 1}, {"group:bridge"})
+		for i,v in ipairs(nodes) do
+			local node = minetest.get_node(v)
+			local node_def = minetest.registered_nodes[node.name]
+			node_def.update_bridge(v)
+		end
+	end,
+	update_bridge = function(pos)
+		update(pos)
+	end,
+})
+
+minetest.register_node(":viaduct:"..item.."_bridge_ew", {
+	description = def.description,
+	tiles = def.tiles,
+	paramtype = "light",
+	drawtype = "nodebox",
+	node_box = {
+		type = "fixed",
+		fixed = {
+			{-0.5, -0.5, -0.5, 0.5, -0.4375, 0.5},
+			{-0.5, -0.4375, 0.375, -0.375, 0.5, 0.5},
+			{0.375, -0.4375, 0.375, 0.5, 0.5, 0.5},
+			{-0.5, -0.4375, -0.5, -0.375, 0.5, -0.375},
+			{0.375, -0.4375, -0.5, 0.5, 0.5, -0.375},
+			{-0.375, 0.3125, 0.375, 0.375, 0.4375, 0.4375},
+			{-0.375, -0.1875, 0.375, 0.375, -0.0625, 0.4375},
+			{-0.375, 0.3125, -0.4375, 0.375, 0.4375, -0.375},
+			{-0.375, -0.1875, -0.4375, 0.375, -0.0625, -0.375},
+		},
+	},
+	selection_box = {
+		type = "fixed",
+		fixed = {-0.5, -0.5, -0.5, 0.5, 0.5, 0.5},
+	},
+	drop = "viaduct:"..item.."_bridge",
+	sounds = def.sounds,
+	groups = nocgroup,
+	after_dig_node = function(pos, oldnode, oldmetadata, digger)
+		local nodes = minetest.find_nodes_in_area({x = pos.x - 1, y = pos.y - 1, z = pos.z - 1}, {x = pos.x + 1, y = pos.y + 1, z = pos.z + 1}, {"group:bridge"})
+		for i,v in ipairs(nodes) do
+			local node = minetest.get_node(v)
+			local node_def = minetest.registered_nodes[node.name]
+			node_def.update_bridge(v)
+		end
+	end,
+	update_bridge = function(pos)
+		update(pos)
+	end,
+})
+
+minetest.register_node(":viaduct:"..item.."_bridge_es", {
+	description = def.description,
+	tiles = def.tiles,
+	paramtype = "light",
+	drawtype = "nodebox",
+	node_box = {
+		type = "fixed",
+		fixed = {
+			{-0.5, -0.5, -0.5, 0.5, -0.4375, 0.5},
+			{-0.5, -0.4375, 0.375, -0.375, 0.5, 0.5},
+			{0.375, -0.4375, 0.375, 0.5, 0.5, 0.5},
+			{-0.5, -0.4375, -0.5, -0.375, 0.5, -0.375},
+			{0.375, -0.4375, -0.5, 0.5, 0.5, -0.375},
+			{-0.375, 0.3125, 0.375, 0.375, 0.4375, 0.4375},
+			{-0.375, -0.1875, 0.375, 0.375, -0.0625, 0.4375},
+			{-0.4375, 0.3125, -0.375, -0.375, 0.4375, 0.375},
+			{-0.4375, -0.1875, -0.375, -0.375, -0.0625, 0.375},
+		},
+	},
+	selection_box = {
+		type = "fixed",
+		fixed = {-0.5, -0.5, -0.5, 0.5, 0.5, 0.5},
+	},
+	drop = "viaduct:"..item.."_bridge",
+	sounds = def.sounds,
+	groups = nocgroup,
+	after_dig_node = function(pos, oldnode, oldmetadata, digger)
+		local nodes = minetest.find_nodes_in_area({x = pos.x - 1, y = pos.y - 1, z = pos.z - 1}, {x = pos.x + 1, y = pos.y + 1, z = pos.z + 1}, {"group:bridge"})
+		for i,v in ipairs(nodes) do
+			local node = minetest.get_node(v)
+			local node_def = minetest.registered_nodes[node.name]
+			node_def.update_bridge(v)
+		end
+	end,
+	update_bridge = function(pos)
+		update(pos)
+	end,
+})
+
+minetest.register_node(":viaduct:"..item.."_bridge_esw", {
+	description = def.description,
+	tiles = def.tiles,
+	paramtype = "light",
+	drawtype = "nodebox",
+	node_box = {
+		type = "fixed",
+		fixed = {
+			{-0.5, -0.5, -0.5, 0.5, -0.4375, 0.5},
+			{-0.5, -0.4375, 0.375, -0.375, 0.5, 0.5},
+			{0.375, -0.4375, 0.375, 0.5, 0.5, 0.5},
+			{-0.5, -0.4375, -0.5, -0.375, 0.5, -0.375},
+			{0.375, -0.4375, -0.5, 0.5, 0.5, -0.375},
+			{-0.375, 0.3125, 0.375, 0.375, 0.4375, 0.4375},
+			{-0.375, -0.1875, 0.375, 0.375, -0.0625, 0.4375},
+		},
+	},
+	selection_box = {
+		type = "fixed",
+		fixed = {-0.5, -0.5, -0.5, 0.5, 0.5, 0.5},
+	},
+	drop = "viaduct:"..item.."_bridge",
+	sounds = def.sounds,
+	groups = nocgroup,
+	after_dig_node = function(pos, oldnode, oldmetadata, digger)
+		local nodes = minetest.find_nodes_in_area({x = pos.x - 1, y = pos.y - 1, z = pos.z - 1}, {x = pos.x + 1, y = pos.y + 1, z = pos.z + 1}, {"group:bridge"})
+		for i,v in ipairs(nodes) do
+			local node = minetest.get_node(v)
+			local node_def = minetest.registered_nodes[node.name]
+			node_def.update_bridge(v)
+		end
+	end,
+	update_bridge = function(pos)
+		update(pos)
+	end,
+})
+
+minetest.register_node(":viaduct:"..item.."_bridge_n", {
+	description = def.description,
+	tiles = def.tiles,
+	paramtype = "light",
+	drawtype = "nodebox",
+	node_box = {
+		type = "fixed",
+		fixed = {
+			{-0.5, -0.5, -0.5, 0.5, -0.4375, 0.5},
+			{-0.5, -0.4375, 0.375, -0.375, 0.5, 0.5},
+			{0.375, -0.4375, 0.375, 0.5, 0.5, 0.5},
+			{-0.5, -0.4375, -0.5, -0.375, 0.5, -0.375},
+			{0.375, -0.4375, -0.5, 0.5, 0.5, -0.375},
+			{0.375, 0.3125, -0.375, 0.4375, 0.4375, 0.375},
+			{0.375, -0.1875, -0.375, 0.4375, -0.0625, 0.375},
+			{-0.375, 0.3125, -0.4375, 0.375, 0.4375, -0.375},
+			{-0.375, -0.1875, -0.4375, 0.375, -0.0625, -0.375},
+			{-0.4375, 0.3125, -0.375, -0.375, 0.4375, 0.375},
+			{-0.4375, -0.1875, -0.375, -0.375, -0.0625, 0.375},
+		},
+	},
+	selection_box = {
+		type = "fixed",
+		fixed = {-0.5, -0.5, -0.5, 0.5, 0.5, 0.5},
+	},
+	drop = "viaduct:"..item.."_bridge",
+	sounds = def.sounds,
+	groups = nocgroup,
+	after_dig_node = function(pos, oldnode, oldmetadata, digger)
+		local nodes = minetest.find_nodes_in_area({x = pos.x - 1, y = pos.y - 1, z = pos.z - 1}, {x = pos.x + 1, y = pos.y + 1, z = pos.z + 1}, {"group:bridge"})
+		for i,v in ipairs(nodes) do
+			local node = minetest.get_node(v)
+			local node_def = minetest.registered_nodes[node.name]
+			node_def.update_bridge(v)
+		end
+	end,
+	update_bridge = function(pos)
+		update(pos)
+	end,
+})
+
+minetest.register_node(":viaduct:"..item.."_bridge_nw", {
+	description = def.description,
+	tiles = def.tiles,
+	paramtype = "light",
+	drawtype = "nodebox",
+	node_box = {
+		type = "fixed",
+		fixed = {
+			{-0.5, -0.5, -0.5, 0.5, -0.4375, 0.5},
+			{-0.5, -0.4375, 0.375, -0.375, 0.5, 0.5},
+			{0.375, -0.4375, 0.375, 0.5, 0.5, 0.5},
+			{-0.5, -0.4375, -0.5, -0.375, 0.5, -0.375},
+			{0.375, -0.4375, -0.5, 0.5, 0.5, -0.375},
+			{0.375, 0.3125, -0.375, 0.4375, 0.4375, 0.375},
+			{0.375, -0.1875, -0.375, 0.4375, -0.0625, 0.375},
+			{-0.375, 0.3125, -0.4375, 0.375, 0.4375, -0.375},
+			{-0.375, -0.1875, -0.4375, 0.375, -0.0625, -0.375},
+		},
+	},
+	selection_box = {
+		type = "fixed",
+		fixed = {-0.5, -0.5, -0.5, 0.5, 0.5, 0.5},
+	},
+	drop = "viaduct:"..item.."_bridge",
+	sounds = def.sounds,
+	groups = nocgroup,
+	after_dig_node = function(pos, oldnode, oldmetadata, digger)
+		local nodes = minetest.find_nodes_in_area({x = pos.x - 1, y = pos.y - 1, z = pos.z - 1}, {x = pos.x + 1, y = pos.y + 1, z = pos.z + 1}, {"group:bridge"})
+		for i,v in ipairs(nodes) do
+			local node = minetest.get_node(v)
+			local node_def = minetest.registered_nodes[node.name]
+			node_def.update_bridge(v)
+		end
+	end,
+	update_bridge = function(pos)
+		update(pos)
+	end,
+})
+
+minetest.register_node(":viaduct:"..item.."_bridge_ns", {
+	description = def.description,
+	tiles = def.tiles,
+	paramtype = "light",
+	drawtype = "nodebox",
+	node_box = {
+		type = "fixed",
+		fixed = {
+			{-0.5, -0.5, -0.5, 0.5, -0.4375, 0.5},
+			{-0.5, -0.4375, 0.375, -0.375, 0.5, 0.5},
+			{0.375, -0.4375, 0.375, 0.5, 0.5, 0.5},
+			{-0.5, -0.4375, -0.5, -0.375, 0.5, -0.375},
+			{0.375, -0.4375, -0.5, 0.5, 0.5, -0.375},
+			{0.375, 0.3125, -0.375, 0.4375, 0.4375, 0.375},
+			{0.375, -0.1875, -0.375, 0.4375, -0.0625, 0.375},
+			{-0.4375, 0.3125, -0.375, -0.375, 0.4375, 0.375},
+			{-0.4375, -0.1875, -0.375, -0.375, -0.0625, 0.375},
+		},
+	},
+	selection_box = {
+		type = "fixed",
+		fixed = {-0.5, -0.5, -0.5, 0.5, 0.5, 0.5},
+	},
+	drop = "viaduct:"..item.."_bridge",
+	sounds = def.sounds,
+	groups = nocgroup,
+	after_dig_node = function(pos, oldnode, oldmetadata, digger)
+		local nodes = minetest.find_nodes_in_area({x = pos.x - 1, y = pos.y - 1, z = pos.z - 1}, {x = pos.x + 1, y = pos.y + 1, z = pos.z + 1}, {"group:bridge"})
+		for i,v in ipairs(nodes) do
+			local node = minetest.get_node(v)
+			local node_def = minetest.registered_nodes[node.name]
+			node_def.update_bridge(v)
+		end
+	end,
+	update_bridge = function(pos)
+		update(pos)
+	end,
+})
+
+minetest.register_node(":viaduct:"..item.."_bridge_nsw", {
+	description = def.description,
+	tiles = def.tiles,
+	paramtype = "light",
+	drawtype = "nodebox",
+	node_box = {
+		type = "fixed",
+		fixed = {
+			{-0.5, -0.5, -0.5, 0.5, -0.4375, 0.5},
+			{-0.5, -0.4375, 0.375, -0.375, 0.5, 0.5},
+			{0.375, -0.4375, 0.375, 0.5, 0.5, 0.5},
+			{-0.5, -0.4375, -0.5, -0.375, 0.5, -0.375},
+			{0.375, -0.4375, -0.5, 0.5, 0.5, -0.375},
+			{0.375, 0.3125, -0.375, 0.4375, 0.4375, 0.375},
+			{0.375, -0.1875, -0.375, 0.4375, -0.0625, 0.375},
+		},
+	},
+	selection_box = {
+		type = "fixed",
+		fixed = {-0.5, -0.5, -0.5, 0.5, 0.5, 0.5},
+	},
+	drop = "viaduct:"..item.."_bridge",
+	sounds = def.sounds,
+	groups = nocgroup,
+	after_dig_node = function(pos, oldnode, oldmetadata, digger)
+		local nodes = minetest.find_nodes_in_area({x = pos.x - 1, y = pos.y - 1, z = pos.z - 1}, {x = pos.x + 1, y = pos.y + 1, z = pos.z + 1}, {"group:bridge"})
+		for i,v in ipairs(nodes) do
+			local node = minetest.get_node(v)
+			local node_def = minetest.registered_nodes[node.name]
+			node_def.update_bridge(v)
+		end
+	end,
+	update_bridge = function(pos)
+		update(pos)
+	end,
+})
+
+minetest.register_node(":viaduct:"..item.."_bridge_ne", {
+	description = def.description,
+	tiles = def.tiles,
+	paramtype = "light",
+	drawtype = "nodebox",
+	node_box = {
+		type = "fixed",
+		fixed = {
+			{-0.5, -0.5, -0.5, 0.5, -0.4375, 0.5},
+			{-0.5, -0.4375, 0.375, -0.375, 0.5, 0.5},
+			{0.375, -0.4375, 0.375, 0.5, 0.5, 0.5},
+			{-0.5, -0.4375, -0.5, -0.375, 0.5, -0.375},
+			{0.375, -0.4375, -0.5, 0.5, 0.5, -0.375},
+			{-0.375, 0.3125, -0.4375, 0.375, 0.4375, -0.375},
+			{-0.375, -0.1875, -0.4375, 0.375, -0.0625, -0.375},
+			{-0.4375, 0.3125, -0.375, -0.375, 0.4375, 0.375},
+			{-0.4375, -0.1875, -0.375, -0.375, -0.0625, 0.375},
+		},
+	},
+	selection_box = {
+		type = "fixed",
+		fixed = {-0.5, -0.5, -0.5, 0.5, 0.5, 0.5},
+	},
+	drop = "viaduct:"..item.."_bridge",
+	sounds = def.sounds,
+	groups = nocgroup,
+	after_dig_node = function(pos, oldnode, oldmetadata, digger)
+		local nodes = minetest.find_nodes_in_area({x = pos.x - 1, y = pos.y - 1, z = pos.z - 1}, {x = pos.x + 1, y = pos.y + 1, z = pos.z + 1}, {"group:bridge"})
+		for i,v in ipairs(nodes) do
+			local node = minetest.get_node(v)
+			local node_def = minetest.registered_nodes[node.name]
+			node_def.update_bridge(v)
+		end
+	end,
+	update_bridge = function(pos)
+		update(pos)
+	end,
+})
+
+minetest.register_node(":viaduct:"..item.."_bridge_new", {
+	description = def.description,
+	tiles = def.tiles,
+	paramtype = "light",
+	drawtype = "nodebox",
+	node_box = {
+		type = "fixed",
+		fixed = {
+			{-0.5, -0.5, -0.5, 0.5, -0.4375, 0.5},
+			{-0.5, -0.4375, 0.375, -0.375, 0.5, 0.5},
+			{0.375, -0.4375, 0.375, 0.5, 0.5, 0.5},
+			{-0.5, -0.4375, -0.5, -0.375, 0.5, -0.375},
+			{0.375, -0.4375, -0.5, 0.5, 0.5, -0.375},
+			{-0.375, 0.3125, -0.4375, 0.375, 0.4375, -0.375},
+			{-0.375, -0.1875, -0.4375, 0.375, -0.0625, -0.375},
+		},
+	},
+	selection_box = {
+		type = "fixed",
+		fixed = {-0.5, -0.5, -0.5, 0.5, 0.5, 0.5},
+	},
+	drop = "viaduct:"..item.."_bridge",
+	sounds = def.sounds,
+	groups = nocgroup,
+	after_dig_node = function(pos, oldnode, oldmetadata, digger)
+		local nodes = minetest.find_nodes_in_area({x = pos.x - 1, y = pos.y - 1, z = pos.z - 1}, {x = pos.x + 1, y = pos.y + 1, z = pos.z + 1}, {"group:bridge"})
+		for i,v in ipairs(nodes) do
+			local node = minetest.get_node(v)
+			local node_def = minetest.registered_nodes[node.name]
+			node_def.update_bridge(v)
+		end
+	end,
+	update_bridge = function(pos)
+		update(pos)
+	end,
+})
+
+minetest.register_node(":viaduct:"..item.."_bridge_nes", {
+	description = def.description,
+	tiles = def.tiles,
+	paramtype = "light",
+	drawtype = "nodebox",
+	node_box = {
+		type = "fixed",
+		fixed = {
+			{-0.5, -0.5, -0.5, 0.5, -0.4375, 0.5},
+			{-0.5, -0.4375, 0.375, -0.375, 0.5, 0.5},
+			{0.375, -0.4375, 0.375, 0.5, 0.5, 0.5},
+			{-0.5, -0.4375, -0.5, -0.375, 0.5, -0.375},
+			{0.375, -0.4375, -0.5, 0.5, 0.5, -0.375},
+			{-0.4375, 0.3125, -0.375, -0.375, 0.4375, 0.375},
+			{-0.4375, -0.1875, -0.375, -0.375, -0.0625, 0.375},
+		},
+	},
+	selection_box = {
+		type = "fixed",
+		fixed = {-0.5, -0.5, -0.5, 0.5, 0.5, 0.5},
+	},
+	drop = "viaduct:"..item.."_bridge",
+	sounds = def.sounds,
+	groups = nocgroup,
+	after_dig_node = function(pos, oldnode, oldmetadata, digger)
+		local nodes = minetest.find_nodes_in_area({x = pos.x - 1, y = pos.y - 1, z = pos.z - 1}, {x = pos.x + 1, y = pos.y + 1, z = pos.z + 1}, {"group:bridge"})
+		for i,v in ipairs(nodes) do
+			local node = minetest.get_node(v)
+			local node_def = minetest.registered_nodes[node.name]
+			node_def.update_bridge(v)
+		end
+	end,
+	update_bridge = function(pos)
+		update(pos)
+	end,
+})
+
+minetest.register_node(":viaduct:"..item.."_bridge_nesw", {
+	description = def.description,
+	tiles = def.tiles,
+	paramtype = "light",
+	drawtype = "nodebox",
+	node_box = {
+		type = "fixed",
+		fixed = {
+			{-0.5, -0.5, -0.5, 0.5, -0.4375, 0.5},
+			{-0.5, -0.4375, 0.375, -0.375, 0.5, 0.5},
+			{0.375, -0.4375, 0.375, 0.5, 0.5, 0.5},
+			{-0.5, -0.4375, -0.5, -0.375, 0.5, -0.375},
+			{0.375, -0.4375, -0.5, 0.5, 0.5, -0.375},
+		},
+	},
+	selection_box = {
+		type = "fixed",
+		fixed = {-0.5, -0.5, -0.5, 0.5, 0.5, 0.5},
+	},
+	drop = "viaduct:"..item.."_bridge",
+	sounds = def.sounds,
+	groups = nocgroup,
+	after_dig_node = function(pos, oldnode, oldmetadata, digger)
+		local nodes = minetest.find_nodes_in_area({x = pos.x - 1, y = pos.y - 1, z = pos.z - 1}, {x = pos.x + 1, y = pos.y + 1, z = pos.z + 1}, {"group:bridge"})
+		for i,v in ipairs(nodes) do
+			local node = minetest.get_node(v)
+			local node_def = minetest.registered_nodes[node.name]
+			node_def.update_bridge(v)
+		end
+	end,
+	update_bridge = function(pos)
+		update(pos)
+	end,
+})
+
+minetest.register_node(":viaduct:"..item.."_bridge_un", {
+	description = def.description,
+	tiles = def.tiles,
+	paramtype = "light",
+	drawtype = "nodebox",
+	node_box = {
+		type = "fixed",
+		fixed = {
+			{-0.5, -0.5, -0.5, 0.5, -0.4375, 0},
+			{-0.5, 0, 0, 0.5, 0.0625, 0.5},
+			{-0.5, 0.0625, 0.375, -0.375, 1, 0.5},
+			{0.375, 0.0625, 0.375, 0.5, 1, 0.5},
+			{-0.5, 0.0625, 0, -0.375, 1, 0.125},
+			{0.375, 0.0625, 0, 0.5, 1, 0.125},
+			{-0.5, -0.4375, -0.125, -0.375, 0.5, 0},
+			{0.375, -0.4375, -0.125, 0.5, 0.5, 0},
+			{-0.5, -0.4375, -0.5, -0.375, 0.5, -0.375},
+			{0.375, -0.4375, -0.5, 0.5, 0.5, -0.375},
+			{-0.4375, 0.8125, 0.125, -0.375, 0.9375, 0.375},
+			{-0.4375, 0.3125, 0.125, -0.375, 0.4375, 0.375},
+			{0.375, 0.8125, 0.125, 0.4375, 0.9375, 0.375},
+			{0.375, 0.3125, 0.125, 0.4375, 0.4375, 0.375},
+			{-0.4375, 0.3125, -0.375, -0.375, 0.4375, -0.125},
+			{-0.4375, -0.1875, -0.375, -0.375, -0.0625, -0.125},
+			{0.375, 0.3125, -0.375, 0.4375, 0.4375, -0.125},
+			{0.375, -0.1875, -0.375, 0.4375, -0.0625, -0.125},
+		},
+	},
+	selection_box = {
+		type = "fixed",
+		fixed = {-0.5, -0.5, -0.5, 0.5, 0.5, 0.5},
+	},
+	drop = "viaduct:"..item.."_bridge",
+	sounds = def.sounds,
+	groups = nocgroup,
+	after_dig_node = function(pos, oldnode, oldmetadata, digger)
+		local nodes = minetest.find_nodes_in_area({x = pos.x - 1, y = pos.y - 1, z = pos.z - 1}, {x = pos.x + 1, y = pos.y + 1, z = pos.z + 1}, {"group:bridge"})
+		for i,v in ipairs(nodes) do
+			local node = minetest.get_node(v)
+			local node_def = minetest.registered_nodes[node.name]
+			node_def.update_bridge(v)
+		end
+	end,
+	update_bridge = function(pos)
+		update(pos)
+	end,
+})
+
+minetest.register_node(":viaduct:"..item.."_bridge_ue", {
+	description = def.description,
+	tiles = def.tiles,
+	paramtype = "light",
+	drawtype = "nodebox",
+	node_box = {
+		type = "fixed",
+		fixed = {
+			{-0.5, -0.5, -0.5, 0, -0.4375, 0.5},
+			{0, 0, -0.5, 0.5, 0.0625, 0.5},
+			{-0.5, -0.4375, 0.375, -0.375, 0.5, 0.5},
+			{-0.125, -0.4375, 0.375, 0, 0.5, 0.5},
+			{-0.5, -0.4375, -0.5, -0.375, 0.5, -0.375},
+			{-0.125, -0.4375, -0.5, 0, 0.5, -0.375},
+			{0, 0.0625, 0.375, 0.125, 1, 0.5},
+			{0.375, 0.0625, 0.375, 0.5, 1, 0.5},
+			{0, 0.0625, -0.5, 0.125, 1, -0.375},
+			{0.375, 0.0625, -0.5, 0.5, 1, -0.375},
+			{-0.375, 0.3125, 0.375, -0.125, 0.4375, 0.4375},
+			{-0.375, -0.1875, 0.375, -0.125, -0.0625, 0.4375},
+			{-0.375, 0.3125, -0.4375, -0.125, 0.4375, -0.375},
+			{-0.375, -0.1875, -0.4375, -0.125, -0.0625, -0.375},
+			{0.125, 0.8125, 0.375, 0.375, 0.9375, 0.4375},
+			{0.125, 0.3125, 0.375, 0.375, 0.4375, 0.4375},
+			{0.125, 0.8125, -0.4375, 0.375, 0.9375, -0.375},
+			{0.125, 0.3125, -0.4375, 0.375, 0.4375, -0.375},
+		},
+	},
+	selection_box = {
+		type = "fixed",
+		fixed = {-0.5, -0.5, -0.5, 0.5, 0.5, 0.5},
+	},
+	drop = "viaduct:"..item.."_bridge",
+	sounds = def.sounds,
+	groups = nocgroup,
+	after_dig_node = function(pos, oldnode, oldmetadata, digger)
+		local nodes = minetest.find_nodes_in_area({x = pos.x - 1, y = pos.y - 1, z = pos.z - 1}, {x = pos.x + 1, y = pos.y + 1, z = pos.z + 1}, {"group:bridge"})
+		for i,v in ipairs(nodes) do
+			local node = minetest.get_node(v)
+			local node_def = minetest.registered_nodes[node.name]
+			node_def.update_bridge(v)
+		end
+	end,
+	update_bridge = function(pos)
+		update(pos)
+	end,
+})
+
+minetest.register_node(":viaduct:"..item.."_bridge_us", {
+	description = def.description,
+	tiles = def.tiles,
+	paramtype = "light",
+	drawtype = "nodebox",
+	node_box = {
+		type = "fixed",
+		fixed = {
+			{-0.5, 0, -0.5, 0.5, 0.0625, 0},
+			{-0.5, -0.5, 0, 0.5, -0.4375, 0.5},
+			{-0.5, -0.4375, 0.375, -0.375, 0.5, 0.5},
+			{0.375, -0.4375, 0.375, 0.5, 0.5, 0.5},
+			{-0.5, -0.4375, 0, -0.375, 0.5, 0.125},
+			{0.375, -0.4375, 0, 0.5, 0.5, 0.125},
+			{-0.5, 0.0625, -0.125, -0.375, 1, 0},
+			{0.375, 0.0625, -0.125, 0.5, 1, 0},
+			{-0.5, 0.0625, -0.5, -0.375, 1, -0.375},
+			{0.375, 0.0625, -0.5, 0.5, 1, -0.375},
+			{-0.4375, 0.3125, 0.125, -0.375, 0.4375, 0.375},
+			{-0.4375, -0.1875, 0.125, -0.375, -0.0625, 0.375},
+			{0.375, 0.3125, 0.125, 0.4375, 0.4375, 0.375},
+			{0.375, -0.1875, 0.125, 0.4375, -0.0625, 0.375},
+			{-0.4375, 0.8125, -0.375, -0.375, 0.9375, -0.125},
+			{-0.4375, 0.3125, -0.375, -0.375, 0.4375, -0.125},
+			{0.375, 0.8125, -0.375, 0.4375, 0.9375, -0.125},
+			{0.375, 0.3125, -0.375, 0.4375, 0.4375, -0.125},
+		},
+	},
+	selection_box = {
+		type = "fixed",
+		fixed = {-0.5, -0.5, -0.5, 0.5, 0.5, 0.5},
+	},
+	drop = "viaduct:"..item.."_bridge",
+	sounds = def.sounds,
+	groups = nocgroup,
+	after_dig_node = function(pos, oldnode, oldmetadata, digger)
+		local nodes = minetest.find_nodes_in_area({x = pos.x - 1, y = pos.y - 1, z = pos.z - 1}, {x = pos.x + 1, y = pos.y + 1, z = pos.z + 1}, {"group:bridge"})
+		for i,v in ipairs(nodes) do
+			local node = minetest.get_node(v)
+			local node_def = minetest.registered_nodes[node.name]
+			node_def.update_bridge(v)
+		end
+	end,
+	update_bridge = function(pos)
+		update(pos)
+	end,
+})
+
+minetest.register_node(":viaduct:"..item.."_bridge_uw", {
+	description = def.description,
+	tiles = def.tiles,
+	paramtype = "light",
+	drawtype = "nodebox",
+	node_box = {
+		type = "fixed",
+		fixed = {
+			{-0.5, 0, -0.5, 0, 0.0625, 0.5},
+			{0, -0.5, -0.5, 0.5, -0.4375, 0.5},
+			{-0.5, 0.0625, 0.375, -0.375, 1, 0.5},
+			{-0.125, 0.0625, 0.375, 0, 1, 0.5},
+			{-0.5, 0.0625, -0.5, -0.375, 1, -0.375},
+			{-0.125, 0.0625, -0.5, 0, 1, -0.375},
+			{0, -0.4375, 0.375, 0.125, 0.5, 0.5},
+			{0.375, -0.4375, 0.375, 0.5, 0.5, 0.5},
+			{0, -0.4375, -0.5, 0.125, 0.5, -0.375},
+			{0.375, -0.4375, -0.5, 0.5, 0.5, -0.375},
+			{-0.375, 0.8125, 0.375, -0.125, 0.9375, 0.4375},
+			{-0.375, 0.3125, 0.375, -0.125, 0.4375, 0.4375},
+			{-0.375, 0.8125, -0.4375, -0.125, 0.9375, -0.375},
+			{-0.375, 0.3125, -0.4375, -0.125, 0.4375, -0.375},
+			{0.125, 0.3125, 0.375, 0.375, 0.4375, 0.4375},
+			{0.125, -0.1875, 0.375, 0.375, -0.0625, 0.4375},
+			{0.125, 0.3125, -0.4375, 0.375, 0.4375, -0.375},
+			{0.125, -0.1875, -0.4375, 0.375, -0.0625, -0.375},
+		},
+	},
+	selection_box = {
+		type = "fixed",
+		fixed = {-0.5, -0.5, -0.5, 0.5, 0.5, 0.5},
+	},
+	drop = "viaduct:"..item.."_bridge",
+	sounds = def.sounds,
+	groups = nocgroup,
+	after_dig_node = function(pos, oldnode, oldmetadata, digger)
+		local nodes = minetest.find_nodes_in_area({x = pos.x - 1, y = pos.y - 1, z = pos.z - 1}, {x = pos.x + 1, y = pos.y + 1, z = pos.z + 1}, {"group:bridge"})
+		for i,v in ipairs(nodes) do
+			local node = minetest.get_node(v)
+			local node_def = minetest.registered_nodes[node.name]
+			node_def.update_bridge(v)
+		end
+	end,
+	update_bridge = function(pos)
+		update(pos)
+	end,
+})
+
+minetest.register_craft({
+	output = "viaduct:"..item.."_bridge 3",
+	recipe = {
+		{stick, "", stick},
+		{stick, "", stick},
+		{name, name, name},
+	}
 })
 
 end
@@ -816,18 +1005,12 @@ function viaduct.register_rope_bridge(name, def)
 
 	local item = name:split(':')[2]
 
-	local desc
 	if not def.description then
-		desc = node_def.description.." Bridge"
-	else
-		desc = def.description
+		def.description = node_def.description.." Bridge"
 	end
 
-	local tile
 	if not def.tiles then
-		tile = node_def.tiles
-	else
-		tile = def.tiles
+		def.tiles = node_def.tiles
 	end
 
 	local group
@@ -836,21 +1019,17 @@ function viaduct.register_rope_bridge(name, def)
 	else
 		group = def.groups
 	end
+	group.bridge = 1
 
-	local sound
 	if not def.sounds then
-		sound = node_def.sounds
-	else
-		sound = def.sounds
+		def.sounds = node_def.sounds
 	end
 
-	local nocgroup = table.copy(group)
-	nocgroup.not_in_creative_inventory = 1
-
 minetest.register_node(":viaduct:"..item.."_bridge_rope", {
-	description = desc,
-	tiles = tile,
+	description = def.description,
+	tiles = def.tiles,
 	paramtype = "light",
+	paramtype2 = "facedir",
 	drawtype = "nodebox",
 	node_box = {
 		type = "fixed",
@@ -873,39 +1052,39 @@ minetest.register_node(":viaduct:"..item.."_bridge_rope", {
 		fixed = {-0.5, -0.5, -0.5, 0.5, 0.5, 0.5},
 	},
 	drop = "viaduct:"..item.."_bridge_rope",
-	sounds = sound,
+	sounds = def.sounds,
 	groups = group,
+	after_place_node = function(pos, placer, itemstack, pointed_thing)
+		local node = minetest.get_node(pos)
+		local node_def = minetest.registered_nodes[node.name]
+		node_def.update_bridge(pos)
+		local nodes = minetest.find_nodes_in_area({x = pos.x - 1, y = pos.y - 1, z = pos.z - 1}, {x = pos.x + 1, y = pos.y + 1, z = pos.z + 1}, {"group:bridge"})
+		for i,v in ipairs(nodes) do
+			local node = minetest.get_node(v)
+			local node_def = minetest.registered_nodes[node.name]
+			node_def.update_bridge(v)
+		end
+	end,
+	after_dig_node = function(pos, oldnode, oldmetadata, digger)
+		local nodes = minetest.find_nodes_in_area({x = pos.x - 1, y = pos.y - 1, z = pos.z - 1}, {x = pos.x + 1, y = pos.y + 1, z = pos.z + 1}, {"group:bridge"})
+		for i,v in ipairs(nodes) do
+			local node = minetest.get_node(v)
+			local node_def = minetest.registered_nodes[node.name]
+			node_def.update_bridge(v)
+		end
+	end,
+	update_bridge = function(pos)
+		local north = minetest.get_node({x = pos.x, y = pos.y, z = pos.z + 1})
+		local south = minetest.get_node({x = pos.x, y = pos.y, z = pos.z - 1})
+		if minetest.get_item_group(north.name, "bridge") == 1 or minetest.get_item_group(south.name, "bridge") == 1 then
+			minetest.swap_node(pos, {name = "viaduct:"..item.."_bridge_rope", param2 = 0})
+		else
+			minetest.swap_node(pos, {name = "viaduct:"..item.."_bridge_rope", param2 = 1})
+		end
+	end,
 })
 
-minetest.register_node(":viaduct:"..item.."_bridge_rope_r", {
-	description = desc,
-	tiles = tile,
-	paramtype = "light",
-	drawtype = "nodebox",
-	node_box = {
-		type = "fixed",
-		fixed = {
-			{-0.5, 0.375, 0.375, 0.5, 0.5, 0.5},
-			{-0.5, 0.375, -0.5, 0.5, 0.5, -0.375},
-			{-0.5, -0.5, 0.375, 0.5, -0.375, 0.5},
-			{-0.5, -0.5, -0.5, 0.5, -0.375, -0.375},
-			{-0.0625, -0.375, 0.375, 0.0625, 0.375, 0.5},
-			{-0.0625, -0.375, -0.5, 0.0625, 0.375, -0.375},
-			{-0.5, -0.5, 0.1875, 0.5, -0.375, 0.0625},
-			{-0.5, -0.5, -0.0625, 0.5, -0.375, -0.1875},
-			{0.25, -0.5, -0.375, 0.375, -0.375, 0.375},
-			{-0.0625, -0.5, -0.375, 0.0625, -0.375, 0.375},
-			{-0.375, -0.5, -0.375, -0.25, -0.375, 0.375},
-		},
-	},
-	selection_box = {
-		type = "fixed",
-		fixed = {-0.5, -0.5, -0.5, 0.5, 0.5, 0.5},
-	},
-	drop = "viaduct:"..item.."_bridge_rope",
-	sounds = sound,
-	groups = nocgroup,
-})
+minetest.register_alias("viaduct:"..item.."_bridge_rope_r", "viaduct:"..item.."_bridge_rope")
 
 minetest.register_craft({
 	output = "viaduct:"..item.."_bridge_rope",
@@ -920,27 +1099,6 @@ minetest.register_craft({
 	type = "shapeless",
 	output = name.." 5",
 	recipe = {"viaduct:"..item.."_bridge_rope"},
-})
-
-minetest.register_abm({
-	nodenames = {
-		"viaduct:"..item.."_bridge_rope",
-		"viaduct:"..item.."_bridge_rope_r"
-
-	},
-	interval = 1,
-	chance = 1,
-	action = function(pos, node)
-		local north = minetest.get_node({x = pos.x, y = pos.y, z = pos.z + 1})
-		local south = minetest.get_node({x = pos.x, y = pos.y, z = pos.z - 1})
-		local modnorth = north.name:split(':')[1]
-		local modsouth = south.name:split(':')[1]
-		if modnorth == "viaduct" or modsouth == "viaduct" then
-			minetest.set_node(pos, {name = "viaduct:"..item.."_bridge_rope"})
-		else
-			minetest.set_node(pos, {name = "viaduct:"..item.."_bridge_rope_r"})
-		end
-	end,
 })
 
 end

@@ -37,5 +37,7 @@ Any part of the item definition can also be blank.
 viaduct.register_wood_bridge("default:wood", {})
 ```
 
+New bridges will be added to group bridge. Bridges will connect to anything in group bridge.
+
 [pithydon]: <https://github.com/pithydon>
 [forum link]: <https://forum.minetest.net/viewtopic.php?f=11&t=14559>
