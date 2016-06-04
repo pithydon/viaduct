@@ -89,70 +89,70 @@ function viaduct.register_wood_bridge(name, def)
 		local wd
 		if westdown.name == "air" then wd = true else wd = false end
 		if n and e and s and w then
-			minetest.set_node(pos, {name = "viaduct:"..item.."_bridge_nesw"})
+			minetest.swap_node(pos, {name = "viaduct:"..item.."_bridge_nesw"})
 		elseif n and e and s and not w then
-			minetest.set_node(pos, {name = "viaduct:"..item.."_bridge_nes"})
+			minetest.swap_node(pos, {name = "viaduct:"..item.."_bridge_nes"})
 		elseif n and e and not s and w then
-			minetest.set_node(pos, {name = "viaduct:"..item.."_bridge_new"})
+			minetest.swap_node(pos, {name = "viaduct:"..item.."_bridge_new"})
 		elseif n and e and not s and not w then
-			minetest.set_node(pos, {name = "viaduct:"..item.."_bridge_ne"})
+			minetest.swap_node(pos, {name = "viaduct:"..item.."_bridge_ne"})
 		elseif n and not e and s and w then
-			minetest.set_node(pos, {name = "viaduct:"..item.."_bridge_nsw"})
+			minetest.swap_node(pos, {name = "viaduct:"..item.."_bridge_nsw"})
 		elseif n and not e and s and not w then
-			minetest.set_node(pos, {name = "viaduct:"..item.."_bridge_ns"})
+			minetest.swap_node(pos, {name = "viaduct:"..item.."_bridge_ns"})
 		elseif n and not e and not s and w then
-			minetest.set_node(pos, {name = "viaduct:"..item.."_bridge_nw"})
+			minetest.swap_node(pos, {name = "viaduct:"..item.."_bridge_nw"})
 		elseif n and not e and not s and not w then
 			if su then
-				minetest.set_node(pos, {name = "viaduct:"..item.."_bridge_us"})
+				minetest.swap_node(pos, {name = "viaduct:"..item.."_bridge_us"})
 			elseif sd then
-				minetest.set_node(pos, {name = "viaduct:"..item.."_bridge_n"})
+				minetest.swap_node(pos, {name = "viaduct:"..item.."_bridge_n"})
 			else
-				minetest.set_node(pos, {name = "viaduct:"..item.."_bridge_ns"})
+				minetest.swap_node(pos, {name = "viaduct:"..item.."_bridge_ns"})
 			end
 		elseif not n and e and s and w then
-			minetest.set_node(pos, {name = "viaduct:"..item.."_bridge_esw"})
+			minetest.swap_node(pos, {name = "viaduct:"..item.."_bridge_esw"})
 		elseif not n and e and s and not w then
-			minetest.set_node(pos, {name = "viaduct:"..item.."_bridge_es"})
+			minetest.swap_node(pos, {name = "viaduct:"..item.."_bridge_es"})
 		elseif not n and e and not s and w then
-			minetest.set_node(pos, {name = "viaduct:"..item.."_bridge_ew"})
+			minetest.swap_node(pos, {name = "viaduct:"..item.."_bridge_ew"})
 		elseif not n and e and not s and not w then
 			if wu then
-				minetest.set_node(pos, {name = "viaduct:"..item.."_bridge_uw"})
+				minetest.swap_node(pos, {name = "viaduct:"..item.."_bridge_uw"})
 			elseif wd then
-				minetest.set_node(pos, {name = "viaduct:"..item.."_bridge_e"})
+				minetest.swap_node(pos, {name = "viaduct:"..item.."_bridge_e"})
 			else
-				minetest.set_node(pos, {name = "viaduct:"..item.."_bridge_ew"})
+				minetest.swap_node(pos, {name = "viaduct:"..item.."_bridge_ew"})
 			end
 		elseif not n and not e and s and w then
-			minetest.set_node(pos, {name = "viaduct:"..item.."_bridge_sw"})
+			minetest.swap_node(pos, {name = "viaduct:"..item.."_bridge_sw"})
 		elseif not n and not e and s and not w then
 			if nu then
-				minetest.set_node(pos, {name = "viaduct:"..item.."_bridge_un"})
+				minetest.swap_node(pos, {name = "viaduct:"..item.."_bridge_un"})
 			elseif nd then
-				minetest.set_node(pos, {name = "viaduct:"..item.."_bridge_s"})
+				minetest.swap_node(pos, {name = "viaduct:"..item.."_bridge_s"})
 			else
-				minetest.set_node(pos, {name = "viaduct:"..item.."_bridge_ns"})
+				minetest.swap_node(pos, {name = "viaduct:"..item.."_bridge_ns"})
 			end
 		elseif not n and not e and not s and w then
 			if eu then
-				minetest.set_node(pos, {name = "viaduct:"..item.."_bridge_ue"})
+				minetest.swap_node(pos, {name = "viaduct:"..item.."_bridge_ue"})
 			elseif ed then
-				minetest.set_node(pos, {name = "viaduct:"..item.."_bridge_w"})
+				minetest.swap_node(pos, {name = "viaduct:"..item.."_bridge_w"})
 			else
-				minetest.set_node(pos, {name = "viaduct:"..item.."_bridge_ew"})
+				minetest.swap_node(pos, {name = "viaduct:"..item.."_bridge_ew"})
 			end
 		else
 			if nu then
-				minetest.set_node(pos, {name = "viaduct:"..item.."_bridge_un"})
+				minetest.swap_node(pos, {name = "viaduct:"..item.."_bridge_un"})
 			elseif eu then
-				minetest.set_node(pos, {name = "viaduct:"..item.."_bridge_ue"})
+				minetest.swap_node(pos, {name = "viaduct:"..item.."_bridge_ue"})
 			elseif su then
-				minetest.set_node(pos, {name = "viaduct:"..item.."_bridge_us"})
+				minetest.swap_node(pos, {name = "viaduct:"..item.."_bridge_us"})
 			elseif wu then
-				minetest.set_node(pos, {name = "viaduct:"..item.."_bridge_uw"})
+				minetest.swap_node(pos, {name = "viaduct:"..item.."_bridge_uw"})
 			else
-				minetest.set_node(pos, {name = "viaduct:"..item.."_bridge"})
+				minetest.swap_node(pos, {name = "viaduct:"..item.."_bridge"})
 			end
 		end
 	end
