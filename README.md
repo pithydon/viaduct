@@ -1,4 +1,4 @@
-# viaduct by [pithydon]
+viaduct by [pithydon]
 
 Connected node bridges for Minetest.
 
