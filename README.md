@@ -93,5 +93,10 @@ viaduct.register_wood_bridge("default:wood", {})
 
 New bridges will be added to group bridge. Bridges will connect to anything in group bridge.
 
+If you change the name of some nodes, default:wood to default:applewood for example use...
+```lua
+viaduct.register_wood_bridge_alias("wood", "applewood")
+```
+
 [pithydon]: <https://github.com/pithydon>
 [forum link]: <https://forum.minetest.net/viewtopic.php?f=11&t=14559>
